@@ -3,9 +3,9 @@ module.exports = {
         title: 'What About This?',
         author: 'Ricardo Canastro',
         description: 'A blog!',
-        siteUrl: 'https://gatsbyjs.github.io/gatsby-starter-blog/'
+        siteUrl: 'https://canastro.github.io/blog/'
     },
-    pathPrefix: '/gatsby-starter-blog',
+    pathPrefix: '/blog',
     plugins: [
         {
             resolve: 'gatsby-plugin-google-analytics',
