@@ -19,7 +19,7 @@ module.exports = {
             options: {
                 name: 'What About This?',
                 short_name: 'WAT?',
-                start_url: '/',
+                start_url: '/blog/',
                 background_color: '#f7f0eb',
                 theme_color: '#a2466c',
                 display: 'minimal-ui',
@@ -75,7 +75,17 @@ module.exports = {
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',
         'gatsby-plugin-feed',
-        'gatsby-plugin-offline',
+        {
+            resolve: 'gatsby-plugin-offline',
+            options: {
+                staticFileGlobs: [
+                    `${__dirname}/**/*.{js,woff2}`,
+                    `${__dirname}/index.html`,
+                    `${__dirname}/manifest.json`
+                ],
+                stripPrefix: __dirname
+            }
+        },
         'gatsby-plugin-react-helmet',
         {
             resolve: 'gatsby-plugin-typography',

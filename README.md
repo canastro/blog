@@ -1,13 +1,6 @@
-# gatsby-starter-blog
-Gatsby starter for creating a blog
+# Blog
+My personal blog.
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-`gatsby new gatsby-blog https://github.com/gatsbyjs/gatsby-starter-blog`
-
-## Running in development
-`gatsby develop`
-
-
-## To do:
-* Add disqus support
-* Add tags
+# Pending articles
+* Speedtracker
+* React Router Code Split

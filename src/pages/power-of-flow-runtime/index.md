@@ -128,3 +128,8 @@ npm i -D flow-babel-webpack-plugin
 Here you go, you have simple setup of webpack + flow + flow-runtime, now go bananas and make something useful!
 
 ![Go Bananas](./go-go-bananas.jpg)
+
+# Resources
+* [flow](https://flow.org/)
+* [flow-runtime](https://codemix.github.io/flow-runtime/#/)
+* [flow-runtime-demo](https://github.com/canastro/flow-runtime-demo)
