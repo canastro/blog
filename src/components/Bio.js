@@ -26,8 +26,10 @@ export default () => (
                 email="ricardocanastro@gmail.com"
             />
             <p>
-                Written by <strong>Ricardo Canastro</strong> a Software Developer based in Porto,
-                Portugal and currently working for Paddy Power Betfair.
+                <strong>"What about this?"</strong>, also known as <strong>"WAT?"</strong> is a
+                software development (mainly javascript) blog written
+                by <strong>Ricardo Canastro</strong> a Software Developer
+                based in Porto, Portugal and currently working for Paddy Power Betfair.
             </p>
         </div>
         <div

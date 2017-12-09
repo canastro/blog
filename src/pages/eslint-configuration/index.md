@@ -1,6 +1,6 @@
 ---
 title: ESLint Configurations - Your Project, Your Rules!
-date: "2017-12-08T23:46:37.121Z"
+date: "2017-12-07T17:00:00.000Z"
 ---
 
 In the last couple of years I've been working in a few freelance and personal projects. At first I was happy just having the airbnb's eslint rules, but after a while I came up with a set of overrides to which I was more comfortable with.
