@@ -40,13 +40,13 @@ export default () => (
                 alignSelf: 'center'
             }}
         >
-            <a href="//www.twitter.com/canastro">
+            <a name="twitter" href="//www.twitter.com/canastro">
                 <Twitter />
             </a>
-            <a href="//www.linkedin.com/in/ricardocanastro">
+            <a name="linkedin" href="//www.linkedin.com/in/ricardocanastro">
                 <Linkedin />
             </a>
-            <a href="//stackoverflow.com/users/236205/canastro">
+            <a name="stackoverflow" href="//stackoverflow.com/users/236205/canastro">
                 <StackOverflow />
             </a>
         </div>

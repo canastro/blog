@@ -12,7 +12,7 @@ export default (props) => {
 
     return (
         <div>
-            <Helmet title={siteTitle} />
+            <Helmet htmlAttributes={{ lang: 'en' }} title={siteTitle} />
             <Bio />
             {posts.map(({ node }) => {
                 const title = get(node, 'frontmatter.title') || node.fields.slug;
@@ -41,9 +41,15 @@ export const pageQuery = graphql`
         site {
             siteMetadata {
                 title
+                author
+                homeCity
             }
         }
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+        allMarkdownRemark(
+            limit: 2000
+            sort: { fields: [frontmatter___date], order: DESC }
+            filter: { frontmatter: { draft: { ne: true } } }
+        ) {
             edges {
                 node {
                     excerpt
@@ -51,7 +57,6 @@ export const pageQuery = graphql`
                         slug
                     }
                     frontmatter {
-                        date(formatString: "DD MMMM, YYYY")
                         title
                     }
                 }

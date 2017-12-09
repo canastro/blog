@@ -3,6 +3,7 @@ module.exports = {
         title: 'What About This?',
         author: 'Ricardo Canastro',
         description: 'A blog!',
+        homeCity: 'Porto',
         siteUrl: 'https://canastro.github.io/blog/'
     },
     pathPrefix: '/blog',
@@ -75,17 +76,7 @@ module.exports = {
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',
         'gatsby-plugin-feed',
-        {
-            resolve: 'gatsby-plugin-offline',
-            options: {
-                staticFileGlobs: [
-                    `${__dirname}/**/*.{js,woff2}`,
-                    `${__dirname}/index.html`,
-                    `${__dirname}/manifest.json`
-                ],
-                stripPrefix: __dirname
-            }
-        },
+        'gatsby-plugin-offline',
         'gatsby-plugin-react-helmet',
         {
             resolve: 'gatsby-plugin-typography',

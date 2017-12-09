@@ -1,6 +1,10 @@
 ---
 title: SpeedTracker - Periodic Performance Tests
+tags:
+  - performance
+draft: false
 date: "2017-12-09T22:00:00.000Z"
+readNext: /power-of-flow-runtime/
 ---
 
 Are you tired of checking WebPageTest if your website's performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!
