@@ -18,8 +18,7 @@ Text *extracted* from *[flow.org](flow.org)*
 
 # What is Flow Runtime?
 
-Flow runtime annotates your code with type validations to be ran in runtime.
-Some type errors cannot be detected on compilation time but only on runtime, imagine the follow code:
+Some type errors cannot be detected on compilation time but only on runtime, flow-runtime annotates your code with assertations to validate types. Imagine the following code:
 
 ```javascript
 const getValue = (input: Object, shouldParse: boolean): number =>
@@ -27,9 +26,7 @@ const getValue = (input: Object, shouldParse: boolean): number =>
 ```
 If the `input.value` is a string and the `shouldParse` is passed as `false` then the output of the given function is a string. This type error can only be detected in runtime.
 
-**Flow-runtime to the rescue!**
-
-The original code is compiled to the following:
+This code when compiled and annotated with flow-runtime validations is something like this: 
 ```javascript
 const getValue = _flowRuntime2.default.annotate(function (input, shouldParse) {
     const _inputType = _flowRuntime2.default.object();

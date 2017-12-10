@@ -12,7 +12,7 @@ type Props = {
  * Page that lists all tags
  * @extends React
  */
-class TagsPageRoute extends React.PureComponent {
+class TagsPageRoute extends React.Component {
     props: Props;
 
     /**

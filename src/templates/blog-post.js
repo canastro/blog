@@ -14,74 +14,65 @@ type Props = {
 
 /**
  * Blog Post template
- * @extends React
+ * @method
+ * @param   {Object} props - react props
+ * @returns {Node} react node
  */
-class BlogPostRoute extends React.PureComponent {
-    props: Props;
+export default (props: Props) => {
+    const post = props.data.markdownRemark;
 
-    /**
-     * Returns the rendered component
-     * @method  render
-     * @returns {Node} Blog Post
-     */
-    render() {
-        const post = this.props.data.markdownRemark;
-
-        let tagsSection;
-        if (this.props.data.markdownRemark.fields.tagSlugs) {
-            const tagsArray = this.props.data.markdownRemark.fields.tagSlugs;
-            const tags = tagsArray.map((tag, i) => {
-                const divider = i < tagsArray.length - 1 && <span> | </span>;
-                return (
-                    <span key={tag}>
-                        <Link to={tag}>{this.props.data.markdownRemark.frontmatter.tags[i]}</Link>
-                        {divider}
-                    </span>
-                );
-            });
-            tagsSection = (
-                <em
-                    style={{
-                        ...scale(-1 / 5),
-                        display: 'block',
-                        marginBottom: rhythm(1)
-                    }}
-                >
-                    Tagged with {tags}
-                </em>
+    let tagsSection;
+    if (props.data.markdownRemark.fields.tagSlugs) {
+        const tagsArray = props.data.markdownRemark.fields.tagSlugs;
+        const tags = tagsArray.map((tag, i) => {
+            const divider = i < tagsArray.length - 1 && <span> | </span>;
+            return (
+                <span key={tag}>
+                    <Link to={tag}>{props.data.markdownRemark.frontmatter.tags[i]}</Link>
+                    {divider}
+                </span>
             );
-        }
-
-        return (
-            <div>
-                <Helmet
-                    title={`${post.frontmatter.title}`}
-                    meta={[{name: 'description', content: post.excerpt}]}
-                />
-                <h1>{post.frontmatter.title}</h1>
-                <div dangerouslySetInnerHTML={{__html: post.html}} />
-                {tagsSection}
-                <p
-                    style={{
-                        ...scale(-1 / 5),
-                        display: 'block',
-                        marginBottom: rhythm(1)
-                    }}
-                >
-                    Posted {post.frontmatter.date}
-                </p>
-                <hr
-                    style={{
-                        marginBottom: rhythm(1)
-                    }}
-                />
-                <Disqus postNode={post} slug={this.props.pathContext.slug} />
-            </div>
+        });
+        tagsSection = (
+            <em
+                style={{
+                    ...scale(-1 / 5),
+                    display: 'block',
+                    marginBottom: rhythm(1)
+                }}
+            >
+                Tagged with {tags}
+            </em>
         );
     }
-}
 
-export default BlogPostRoute;
+    return (
+        <div>
+            <Helmet
+                title={`${post.frontmatter.title}`}
+                meta={[{name: 'description', content: post.excerpt}]}
+            />
+            <h1>{post.frontmatter.title}</h1>
+            <div dangerouslySetInnerHTML={{__html: post.html}} />
+            {tagsSection}
+            <p
+                style={{
+                    ...scale(-1 / 5),
+                    display: 'block',
+                    marginBottom: rhythm(1)
+                }}
+            >
+                Posted {post.frontmatter.date}
+            </p>
+            <hr
+                style={{
+                    marginBottom: rhythm(1)
+                }}
+            />
+            <Disqus postNode={post} slug={props.pathContext.slug} />
+        </div>
+    );
+};
 
 export const pageQuery = graphql`
     query BlogPostBySlug($slug: String!) {

@@ -1,5 +1,5 @@
 // @flow
-import React, {PureComponent} from 'react';
+import React from 'react';
 import type {Node} from 'react';
 import Link from 'gatsby-link';
 import {Container} from 'react-responsive-grid';
@@ -73,33 +73,26 @@ type Props = {
 
 /**
  * Main layout
- * @extends PureComponent
+ * @method
+ * @param   {Object} props - react props
+ * @returns {Node} react node
  */
-class Layout extends PureComponent<Props> {
-    /**
-     * Returns Layout Content
-     * @method  render
-     * @returns {Node} Node
-     */
-    render(): Node {
-        const {location, children} = this.props;
-        const rootPath = getRootPath();
+export default (props: Props) => {
+    const {location, children} = props;
+    const rootPath = getRootPath();
 
-        const shouldRenderBigHeader =
-            location.pathname === rootPath || location.pathname.indexOf('/tags/') !== -1;
+    const shouldRenderBigHeader =
+        location.pathname === rootPath || location.pathname.indexOf('/tags/') !== -1;
 
-        return (
-            <Container
-                style={{
-                    maxWidth: rhythm(24),
-                    padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
-                }}
-            >
-                {getHeader(shouldRenderBigHeader)}
-                {children()}
-            </Container>
-        );
-    }
-}
-
-export default Layout;
+    return (
+        <Container
+            style={{
+                maxWidth: rhythm(24),
+                padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
+            }}
+        >
+            {getHeader(shouldRenderBigHeader)}
+            {children()}
+        </Container>
+    );
+};

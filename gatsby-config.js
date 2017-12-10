@@ -65,10 +65,11 @@ module.exports = {
         },
         'gatsby-plugin-sitemap',
         'gatsby-transformer-sharp',
-        'gatsby-plugin-sharp',
         'gatsby-plugin-feed',
+        'gatsby-plugin-sharp',
         'gatsby-plugin-offline',
         'gatsby-plugin-react-helmet',
+        // 'gatsby-plugin-preact',
         {
             resolve: 'gatsby-plugin-typography',
             options: {

@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const path = require('path');
-const webpackLodashPlugin = require('lodash-webpack-plugin');
+const {createFilePath} = require('gatsby-source-filesystem');
 
 exports.createPages = ({graphql, boundActionCreators}) => {
     const {createPage} = boundActionCreators;
@@ -36,9 +36,7 @@ exports.createPages = ({graphql, boundActionCreators}) => {
                 createPage({
                     path: edge.node.fields.slug, // required
                     component: blogPost,
-                    context: {
-                        slug: edge.node.fields.slug
-                    }
+                    context: {slug: edge.node.fields.slug}
                 });
             });
 
@@ -66,16 +64,13 @@ exports.createPages = ({graphql, boundActionCreators}) => {
     });
 };
 
-// exports.postBuild = require('./post-build')
-
 // Add custom url pathname for blog posts.
 exports.onCreateNode = ({node, boundActionCreators, getNode}) => {
     const {createNodeField} = boundActionCreators;
 
     if (node.internal.type === 'File') {
-        const parsedFilePath = path.parse(node.absolutePath);
-        const slug = `/${parsedFilePath.dir.split('---')[1]}/`;
-        createNodeField({node, name: 'slug', value: slug});
+        const value = createFilePath({node, getNode});
+        createNodeField({node, name: 'slug', value});
     } else if (node.internal.type === 'MarkdownRemark' && typeof node.slug === 'undefined') {
         const fileNode = getNode(node.parent);
         createNodeField({
@@ -87,12 +82,5 @@ exports.onCreateNode = ({node, boundActionCreators, getNode}) => {
             const tagSlugs = node.frontmatter.tags.map(tag => `/tags/${_.kebabCase(tag)}/`);
             createNodeField({node, name: 'tagSlugs', value: tagSlugs});
         }
-    }
-};
-
-// Add Lodash plugin
-exports.modifyWebpackConfig = ({config, stage}) => {
-    if (stage === 'build-javascript') {
-        config.plugin('Lodash', webpackLodashPlugin, null);
     }
 };
