@@ -1,0 +1,33 @@
+{
+    "extends": [
+        "airbnb",
+        "@canastro/eslint-config",
+        "@canastro/eslint-config/jsdoc",
+        "@canastro/eslint-config/react",
+        "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+        "flowtype"
+    ],
+    "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "import/extensions": "off",
+        "jsx-a11y/anchor-is-valid": "off"
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "globals": {
+        "graphql": false,
+        "__PATH_PREFIX__": true,
+        "__PREFIX_PATHS__": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        }
+    }
+}

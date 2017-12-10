@@ -1,17 +1,19 @@
-import React, { PureComponent } from 'react';
+// @flow
+import React, {PureComponent} from 'react';
+import type {Node} from 'react';
 import Link from 'gatsby-link';
-import { Container } from 'react-responsive-grid';
+import {Container} from 'react-responsive-grid';
 import 'prismjs/themes/prism-okaidia.css';
 
-import { rhythm, scale } from '../utils/typography';
+import {rhythm, scale} from '../utils/typography';
 
 /**
  * Get header
  * @method  getHeader
- * @param   {Boolean} isRoot Is content page the root page
+ * @param   {Boolean} shouldRenderBigHeader Is content page the root page
  * @returns {Node} Header content
  */
-const getHeader = (isRoot) => {
+const getHeader = (shouldRenderBigHeader: boolean): Node => {
     const linkStyle = {
         boxShadow: 'none',
         textDecoration: 'none',
@@ -24,7 +26,7 @@ const getHeader = (isRoot) => {
         </Link>
     );
 
-    if (isRoot) {
+    if (shouldRenderBigHeader) {
         return (
             <h1
                 style={{
@@ -56,7 +58,7 @@ const getHeader = (isRoot) => {
  * @method  getRootPath
  * @returns {String} root path
  */
-const getRootPath = () => {
+const getRootPath = (): string => {
     if (typeof __PREFIX_PATHS__ !== 'undefined' && __PREFIX_PATHS__) {
         return `${__PATH_PREFIX__}/`;
     }
@@ -64,10 +66,27 @@ const getRootPath = () => {
     return '/';
 };
 
-class Template extends PureComponent {
-    render() {
-        const { location, children } = this.props;
+type Props = {
+    location: Object,
+    children: Function
+};
+
+/**
+ * Main layout
+ * @extends PureComponent
+ */
+class Layout extends PureComponent<Props> {
+    /**
+     * Returns Layout Content
+     * @method  render
+     * @returns {Node} Node
+     */
+    render(): Node {
+        const {location, children} = this.props;
         const rootPath = getRootPath();
+
+        const shouldRenderBigHeader =
+            location.pathname === rootPath || location.pathname.indexOf('/tags/') !== -1;
 
         return (
             <Container
@@ -76,11 +95,11 @@ class Template extends PureComponent {
                     padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
                 }}
             >
-                {getHeader(location.pathname === rootPath)}
+                {getHeader(shouldRenderBigHeader)}
                 {children()}
             </Container>
         );
     }
 }
 
-export default Template;
+export default Layout;

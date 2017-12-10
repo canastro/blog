@@ -3,31 +3,28 @@ const Promise = require('bluebird');
 const path = require('path');
 const webpackLodashPlugin = require('lodash-webpack-plugin');
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-    const { createPage } = boundActionCreators;
+exports.createPages = ({graphql, boundActionCreators}) => {
+    const {createPage} = boundActionCreators;
 
     return new Promise((resolve) => {
         const blogPost = path.resolve('src/templates/blog-post.js');
         const tagPages = path.resolve('src/templates/tag-page.js');
         graphql(`
-                {
-                    allMarkdownRemark(
-                        limit: 1000
-                        filter: { frontmatter: { draft: { ne: true } } }
-                    ) {
-                        edges {
-                            node {
-                                fields {
-                                    slug
-                                }
-                                frontmatter {
-                                    tags
-                                }
+            {
+                allMarkdownRemark(limit: 1000, filter: {frontmatter: {draft: {ne: true}}}) {
+                    edges {
+                        node {
+                            fields {
+                                slug
+                            }
+                            frontmatter {
+                                tags
                             }
                         }
                     }
                 }
-            `).then((result) => {
+            }
+        `).then((result) => {
             if (result.errors) {
                 console.log(result.errors);
                 resolve();
@@ -72,13 +69,13 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 // exports.postBuild = require('./post-build')
 
 // Add custom url pathname for blog posts.
-exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
-    const { createNodeField } = boundActionCreators;
+exports.onCreateNode = ({node, boundActionCreators, getNode}) => {
+    const {createNodeField} = boundActionCreators;
 
     if (node.internal.type === 'File') {
         const parsedFilePath = path.parse(node.absolutePath);
         const slug = `/${parsedFilePath.dir.split('---')[1]}/`;
-        createNodeField({ node, name: 'slug', value: slug });
+        createNodeField({node, name: 'slug', value: slug});
     } else if (node.internal.type === 'MarkdownRemark' && typeof node.slug === 'undefined') {
         const fileNode = getNode(node.parent);
         createNodeField({
@@ -88,13 +85,13 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
         });
         if (node.frontmatter.tags) {
             const tagSlugs = node.frontmatter.tags.map(tag => `/tags/${_.kebabCase(tag)}/`);
-            createNodeField({ node, name: 'tagSlugs', value: tagSlugs });
+            createNodeField({node, name: 'tagSlugs', value: tagSlugs});
         }
     }
 };
 
 // Add Lodash plugin
-exports.modifyWebpackConfig = ({ config, stage }) => {
+exports.modifyWebpackConfig = ({config, stage}) => {
     if (stage === 'build-javascript') {
         config.plugin('Lodash', webpackLodashPlugin, null);
     }

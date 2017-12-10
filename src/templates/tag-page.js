@@ -1,12 +1,29 @@
+// @flow
+
 import React from 'react';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 
-class TagRoute extends React.Component {
+type Props = {
+    data: Object;
+    pathContext: Object;
+}
+
+/**
+ * Tag Pag template component
+ * @extends React
+ */
+class TagRoute extends React.PureComponent {
+    props: Props;
+
+    /**
+     * Returns the rendered component
+     * @method  render
+     * @returns {Node} Tag Page
+     */
     render() {
-        // console.log(this.props)
         const posts = this.props.data.allMarkdownRemark.edges;
-        const title = this.props.data.site.siteMetadata.title;
+        const {title} = this.props.data.site.siteMetadata;
         const postLinks = posts.map(post => (
             <li key={post.node.fields.slug}>
                 <Link to={post.node.fields.slug}>{post.node.frontmatter.title}</Link>
@@ -41,8 +58,8 @@ export const pageQuery = graphql`
         }
         allMarkdownRemark(
             limit: 1000
-            sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
+            sort: {fields: [frontmatter___date], order: DESC}
+            filter: {frontmatter: {tags: {in: [$tag]}, draft: {ne: true}}}
         ) {
             totalCount
             edges {

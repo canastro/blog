@@ -4,7 +4,6 @@ tags:
   - dev environment
 draft: false
 date: "2017-12-08T22:00:00.000Z"
-readNext: /eslint-configuration/
 ---
 
 # What is Flow?

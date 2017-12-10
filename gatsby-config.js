@@ -20,24 +20,15 @@ module.exports = {
             options: {
                 name: 'What About This?',
                 short_name: 'WAT?',
-                start_url: '/blog/',
-                background_color: '#f7f0eb',
-                theme_color: '#a2466c',
+                start_url: '/blog',
+                background_color: 'white',
+                theme_color: 'white',
                 display: 'minimal-ui',
                 icons: [
                     {
-                        // Everything in /static will be copied to an equivalent
-                        // directory in /public during development and build, so
-                        // assuming your favicons are in /static/favicons,
-                        // you can reference them here
-                        src: '/favicons/android-chrome-192x192.png',
-                        sizes: '192x192',
-                        type: 'image/png'
-                    },
-                    {
-                        src: '/favicons/android-chrome-512x512.png',
-                        sizes: '512x512',
-                        type: 'image/png'
+                        src: '/favicons/logo.jpeg',
+                        sizes: '200x200',
+                        type: 'image/jpg'
                     }
                 ]
             }

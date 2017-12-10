@@ -38,7 +38,6 @@ If you're facing a similar issue, I suggest you to create your own eslint config
 #### index.js
 ```javascript
     module.exports = {
-        extends: ['airbnb'],
         parserOptions: {
             sourceType: 'module'
         },
@@ -88,6 +87,7 @@ npm install --save-dev eslint-config-{name}
 ```javascript
     module.exports = {
         extends: [
+            'airbnb',
             'eslint-config-{name}',
             'eslint-config-{name}/jsdoc'
         ],
@@ -110,6 +110,7 @@ In order to achieve this you need to change the project's name on the package.js
 To use the eslint config in a scoped module you have to install your module `npm i --save-dev @canastro/eslint-config` and update your extends to something in this fashion:
 ```javascript
 extends: [
+    'airbnb',
     '@canastro/eslint-config',
     '@canastro/eslint-config/jsdoc',
     '@canastro/eslint-config/react',

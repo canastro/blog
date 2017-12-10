@@ -1,21 +1,45 @@
-import React, { Component } from 'react';
-import Link from 'gatsby-link';
+// @flow
+import React, {Component} from 'react';
+import type {Node} from 'react';
 import ReactDisqusComments from 'react-disqus-comments';
 
-class Disqus extends Component {
+type Props = {
+    postNode: Object,
+    slug: string
+};
+
+/**
+ * Discus comments component
+ * @extends Component
+ */
+class Disqus extends Component<Props> {
+    /**
+     * Constructor
+     * @method  constructor
+     * @param   {Props}    props - component props
+     */
     constructor(props) {
         super(props);
         this.notifyAboutComment = this.notifyAboutComment.bind(this);
     }
 
+    /**
+     * Callback method for when a new comment is added to disqus
+     * @method  notifyAboutComment
+     */
     notifyAboutComment() {
         console.log(this, 'new comment');
     }
 
-    render() {
-        const { postNode, slug } = this.props;
+    /**
+     * Renders comments section
+     * @method  render
+     * @returns {Node} Discus component
+     */
+    render(): Node {
+        const {postNode, slug} = this.props;
         const post = postNode.frontmatter;
-        const url = `https://canastro.github.io/what-about-this${slug}`;
+        const url = `https://canastro.github.io/blog${slug}`;
 
         return (
             <section>

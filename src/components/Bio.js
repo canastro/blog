@@ -6,7 +6,7 @@ import StackOverflow from 'react-icons/lib/fa/stack-overflow';
 import Linkedin from 'react-icons/lib/fa/linkedin';
 import Gravatar from 'react-gravatar';
 
-import { rhythm } from '../utils/typography';
+import {rhythm} from '../utils/typography';
 
 export default () => (
     <div
@@ -16,7 +16,7 @@ export default () => (
             marginBottom: rhythm(2.5)
         }}
     >
-        <div style={{ display: 'flex' }}>
+        <div style={{display: 'flex'}}>
             <Gravatar
                 style={{
                     marginRight: rhythm(1 / 2),
@@ -26,10 +26,10 @@ export default () => (
                 email="ricardocanastro@gmail.com"
             />
             <p>
-                <strong>"What about this?"</strong>, also known as <strong>"WAT?"</strong> is a
-                software development (mainly javascript) blog written
-                by <strong>Ricardo Canastro</strong> a Software Developer
-                based in Porto, Portugal and currently working for Paddy Power Betfair.
+                <strong>&#x22;What about this?&#x22;</strong>, also known as{' '}
+                <strong>&#x22;WAT?&#x22;</strong> is a software development (mainly javascript) blog
+                written by <strong>Ricardo Canastro</strong> a Software Developer based in Porto,
+                Portugal and currently working for Paddy Power Betfair.
             </p>
         </div>
         <div

@@ -1,21 +1,36 @@
+// @flow
 import React from 'react';
 import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
 import typography from '../utils/typography';
 import Disqus from '../components/Disqus';
 
-const { rhythm, scale } = typography;
+const {rhythm, scale} = typography;
 
+type Props = {
+    data: Object,
+    pathContext: Object
+};
+
+/**
+ * Blog Post template
+ * @extends React
+ */
 class BlogPostRoute extends React.PureComponent {
+    props: Props;
+
+    /**
+     * Returns the rendered component
+     * @method  render
+     * @returns {Node} Blog Post
+     */
     render() {
         const post = this.props.data.markdownRemark;
-        // console.log(post)
 
-        let tags;
         let tagsSection;
         if (this.props.data.markdownRemark.fields.tagSlugs) {
             const tagsArray = this.props.data.markdownRemark.fields.tagSlugs;
-            tags = tagsArray.map((tag, i) => {
+            const tags = tagsArray.map((tag, i) => {
                 const divider = i < tagsArray.length - 1 && <span> | </span>;
                 return (
                     <span key={tag}>
@@ -41,10 +56,10 @@ class BlogPostRoute extends React.PureComponent {
             <div>
                 <Helmet
                     title={`${post.frontmatter.title}`}
-                    meta={[{ name: 'description', content: post.excerpt }]}
+                    meta={[{name: 'description', content: post.excerpt}]}
                 />
                 <h1>{post.frontmatter.title}</h1>
-                <div dangerouslySetInnerHTML={{ __html: post.html }} />
+                <div dangerouslySetInnerHTML={{__html: post.html}} />
                 {tagsSection}
                 <p
                     style={{
@@ -76,7 +91,7 @@ export const pageQuery = graphql`
                 homeCity
             }
         }
-        markdownRemark(fields: { slug: { eq: $slug } }) {
+        markdownRemark(fields: {slug: {eq: $slug}}) {
             html
             excerpt
             fields {
