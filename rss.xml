@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[What About This?]]></title><description><![CDATA[A blog!]]></description><link>https://canastro.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 10 Dec 2017 22:03:35 GMT</lastBuildDate><item><title><![CDATA[SpeedTracker - Periodic Performance Tests]]></title><description><![CDATA[Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries…]]></description><link>https://canastro.github.io/blog//2017-12-09---speedtracker/</link><guid isPermaLink="false">https://canastro.github.io/blog//2017-12-09---speedtracker/</guid><pubDate>Sat, 09 Dec 2017 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[What About This?]]></title><description><![CDATA[A blog!]]></description><link>https://canastro.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 10 Dec 2017 23:05:23 GMT</lastBuildDate><item><title><![CDATA[SpeedTracker - Periodic Performance Tests]]></title><description><![CDATA[Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries…]]></description><link>https://canastro.github.io/blog//2017-12-09---speedtracker/</link><guid isPermaLink="false">https://canastro.github.io/blog//2017-12-09---speedtracker/</guid><pubDate>Sat, 09 Dec 2017 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!&lt;/p&gt;
 &lt;h1&gt;What is SpeedTracker?&lt;/h1&gt;
 &lt;p&gt;It runs on top of &lt;a href=&quot;https://www.webpagetest.org/&quot;&gt;WebPageTest&lt;/a&gt; and makes periodic performance tests on your website and shows a visualisation of how the various performance metrics evolve over time.&lt;/p&gt;
 &lt;h1&gt;How to set it up?&lt;/h1&gt;
@@ -74,16 +74,14 @@ Dulles_MotoG:Chrome&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;p&gt;Text &lt;em&gt;extracted&lt;/em&gt; from &lt;em&gt;&lt;a href=&quot;flow.org&quot;&gt;flow.org&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;h1&gt;What is Flow Runtime?&lt;/h1&gt;
-&lt;p&gt;Flow runtime annotates your code with type validations to be ran in runtime.
-Some type errors cannot be detected on compilation time but only on runtime, imagine the follow code:&lt;/p&gt;
+&lt;p&gt;Some type errors cannot be detected on compilation time but only on runtime, flow-runtime annotates your code with assertations to validate types. Imagine the following code:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; getValue &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; shouldParse&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; boolean&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; number &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt;
     shouldParse &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; input&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;If the &lt;code&gt;input.value&lt;/code&gt; is a string and the &lt;code&gt;shouldParse&lt;/code&gt; is passed as &lt;code&gt;false&lt;/code&gt; then the output of the given function is a string. This type error can only be detected in runtime.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Flow-runtime to the rescue!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The original code is compiled to the following:&lt;/p&gt;
+&lt;p&gt;This code when compiled and annotated with flow-runtime validations is something like this: &lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; getValue &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; _flowRuntime2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;annotate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; shouldParse&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; _inputType &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; _flowRuntime2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -188,7 +186,7 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
+    href=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -207,10 +205,10 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Go Bananas&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
-        srcset=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-87e4b.jpg 148w,
-/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-8d5c0.jpg 295w,
-/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg 320w&quot;
+        src=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
+        srcset=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-87e4b.jpg 148w,
+/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-8d5c0.jpg 295w,
+/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg 320w&quot;
         sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
       /&gt;
     &lt;/span&gt;
@@ -229,7 +227,7 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg&quot;
+    href=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -248,11 +246,11 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Monkey Work&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg&quot;
-        srcset=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-abfcc.jpg 148w,
-/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-99059.jpg 295w,
-/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg 590w,
-/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg 600w&quot;
+        src=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg&quot;
+        srcset=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-abfcc.jpg 148w,
+/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-99059.jpg 295w,
+/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg 590w,
+/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg 600w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
