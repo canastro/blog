@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[What About This?]]></title><description><![CDATA[A blog!]]></description><link>https://canastro.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 10 Dec 2017 19:11:53 GMT</lastBuildDate><item><title><![CDATA[SpeedTracker - Periodic Performance Tests]]></title><description><![CDATA[Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries…]]></description><link>https://canastro.github.io/blog//speedtracker/</link><guid isPermaLink="false">https://canastro.github.io/blog//speedtracker/</guid><pubDate>Sat, 09 Dec 2017 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[What About This?]]></title><description><![CDATA[A blog!]]></description><link>https://canastro.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 10 Dec 2017 19:22:06 GMT</lastBuildDate><item><title><![CDATA[SpeedTracker - Periodic Performance Tests]]></title><description><![CDATA[Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries…]]></description><link>https://canastro.github.io/blog//speedtracker/</link><guid isPermaLink="false">https://canastro.github.io/blog//speedtracker/</guid><pubDate>Sat, 09 Dec 2017 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Are you tired of checking WebPageTest if your website’s performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!&lt;/p&gt;
 &lt;h1&gt;What is SpeedTracker?&lt;/h1&gt;
 &lt;p&gt;It runs on top of &lt;a href=&quot;https://www.webpagetest.org/&quot;&gt;WebPageTest&lt;/a&gt; and makes periodic performance tests on your website and shows a visualisation of how the various performance metrics evolve over time.&lt;/p&gt;
 &lt;h1&gt;How to set it up?&lt;/h1&gt;
@@ -188,7 +188,7 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
+    href=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -207,10 +207,10 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Go Bananas&quot;
         title=&quot;&quot;
-        src=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
-        srcset=&quot;/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-87e4b.jpg 148w,
-/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-8d5c0.jpg 295w,
-/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg 320w&quot;
+        src=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg&quot;
+        srcset=&quot;/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-87e4b.jpg 148w,
+/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-8d5c0.jpg 295w,
+/blog/static/go-go-bananas-a80f143312ffdc7747813e88edfc0227-cc4ed.jpg 320w&quot;
         sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
       /&gt;
     &lt;/span&gt;
@@ -229,7 +229,7 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg&quot;
+    href=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -248,11 +248,11 @@ npm i -D flow-babel-webpack-plugin&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Monkey Work&quot;
         title=&quot;&quot;
-        src=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg&quot;
-        srcset=&quot;/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-abfcc.jpg 148w,
-/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-99059.jpg 295w,
-/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg 590w,
-/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg 600w&quot;
+        src=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg&quot;
+        srcset=&quot;/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-abfcc.jpg 148w,
+/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-99059.jpg 295w,
+/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-2b94f.jpg 590w,
+/blog/static/monkey-work-b526965f52816cf88f237eaefaea3cc0-94e9d.jpg 600w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
