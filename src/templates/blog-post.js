@@ -2,24 +2,37 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
+import injectSheet from 'react-jss';
+
 import typography from '../utils/typography';
 import Disqus from '../components/Disqus';
 
 const {rhythm, scale} = typography;
 
+const styles = {
+    smallText: {
+        ...scale(-1 / 5),
+        display: 'block',
+        marginBottom: rhythm(1)
+    },
+    hr: {marginBottom: rhythm(1)}
+};
+
 type Props = {
     data: Object,
-    pathContext: Object
+    pathContext: Object,
+    classes: {[string]: string}
 };
 
 /**
  * Blog Post template
- * @method
+ * @method BlogPost
  * @param   {Object} props - react props
  * @returns {Node} react node
  */
-export default (props: Props) => {
-    const post = props.data.markdownRemark;
+const BlogPost = (props: Props) => {
+    const {classes, data} = props;
+    const post = data.markdownRemark;
 
     let tagsSection;
     if (props.data.markdownRemark.fields.tagSlugs) {
@@ -33,17 +46,8 @@ export default (props: Props) => {
                 </span>
             );
         });
-        tagsSection = (
-            <em
-                style={{
-                    ...scale(-1 / 5),
-                    display: 'block',
-                    marginBottom: rhythm(1)
-                }}
-            >
-                Tagged with {tags}
-            </em>
-        );
+
+        tagsSection = <em className={classes.smallText}>Tagged with {tags}</em>;
     }
 
     return (
@@ -55,24 +59,14 @@ export default (props: Props) => {
             <h1>{post.frontmatter.title}</h1>
             <div dangerouslySetInnerHTML={{__html: post.html}} />
             {tagsSection}
-            <p
-                style={{
-                    ...scale(-1 / 5),
-                    display: 'block',
-                    marginBottom: rhythm(1)
-                }}
-            >
-                Posted {post.frontmatter.date}
-            </p>
-            <hr
-                style={{
-                    marginBottom: rhythm(1)
-                }}
-            />
+            <p className={classes.smallText}>Posted {post.frontmatter.date}</p>
+            <hr className={classes.hr} />
             <Disqus postNode={post} slug={props.pathContext.slug} />
         </div>
     );
 };
+
+export default injectSheet(styles)(BlogPost);
 
 export const pageQuery = graphql`
     query BlogPostBySlug($slug: String!) {

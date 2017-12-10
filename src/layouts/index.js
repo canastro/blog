@@ -3,25 +3,33 @@ import React from 'react';
 import type {Node} from 'react';
 import Link from 'gatsby-link';
 import {Container} from 'react-responsive-grid';
+import injectSheet from 'react-jss';
 import 'prismjs/themes/prism-okaidia.css';
 
 import {rhythm, scale} from '../utils/typography';
 
-/**
- * Get header
- * @method  getHeader
- * @param   {Boolean} shouldRenderBigHeader Is content page the root page
- * @returns {Node} Header content
- */
-const getHeader = (shouldRenderBigHeader: boolean): Node => {
-    const linkStyle = {
+const styles = {
+    root: {
+        maxWidth: rhythm(24),
+        padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
+    },
+    link: {
         boxShadow: 'none',
         textDecoration: 'none',
         color: 'inherit'
-    };
+    }
+};
 
+/**
+ * Get header
+ * @method  getHeader
+ * @param   {String} className - link classname
+ * @param   {Boolean} shouldRenderBigHeader - Is content page the root page
+ * @returns {Node} Header content
+ */
+const getHeader = (className: string, shouldRenderBigHeader: boolean): Node => {
     const link = (
-        <Link style={linkStyle} to="/">
+        <Link className={className} to="/">
             What about this?
         </Link>
     );
@@ -68,7 +76,8 @@ const getRootPath = (): string => {
 
 type Props = {
     location: Object,
-    children: Function
+    children: Function,
+    classes: {[string]: string}
 };
 
 /**
@@ -77,22 +86,19 @@ type Props = {
  * @param   {Object} props - react props
  * @returns {Node} react node
  */
-export default (props: Props) => {
-    const {location, children} = props;
+const Layout = (props: Props) => {
+    const {location, children, classes} = props;
     const rootPath = getRootPath();
 
     const shouldRenderBigHeader =
         location.pathname === rootPath || location.pathname.indexOf('/tags/') !== -1;
 
     return (
-        <Container
-            style={{
-                maxWidth: rhythm(24),
-                padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
-            }}
-        >
-            {getHeader(shouldRenderBigHeader)}
+        <Container className={classes.root}>
+            {getHeader(classes.link, shouldRenderBigHeader)}
             {children()}
         </Container>
     );
 };
+
+export default injectSheet(styles)(Layout);

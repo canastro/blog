@@ -3,51 +3,50 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
 import kebabCase from 'lodash/kebabCase';
+import injectSheet from 'react-jss';
+
+const styles = {
+    link: {textDecoration: 'none'}
+};
 
 type Props = {
-    data: Object;
-}
+    data: Object,
+    classes: {[string]: string}
+};
 
 /**
  * Page that lists all tags
- * @extends React
+ * @method TagsPageRoute
+ * @param  {Object}      props - react Props
+ * @returns {Node} react node
  */
-class TagsPageRoute extends React.Component {
-    props: Props;
+const TagsPageRoute = (props: Props) => {
+    const {title} = props.data.site.siteMetadata;
+    const allTags = props.data.allMarkdownRemark.group;
 
-    /**
-     * Renders the list tags page
-     * @method  render
-     * @returns {Node} Rendered component
-     */
-    render() {
-        const {title} = this.props.data.site.siteMetadata;
-        const allTags = this.props.data.allMarkdownRemark.group;
-
-        return (
+    return (
+        <div>
+            <Helmet title={title} />
             <div>
-                <Helmet title={title} />
-                <div>
-                    <h1>Tags</h1>
-                    <ul>
-                        {allTags.map(tag => (
-                            <li key={tag.fieldValue}>
-                                <Link
-                                    style={{textDecoration: 'none'}}
-                                    to={`/tags/${kebabCase(tag.fieldValue)}/`}
-                                >
-                                    {tag.fieldValue} ({tag.totalCount})
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <h1>Tags</h1>
+                <ul>
+                    {allTags.map(tag => (
+                        <li key={tag.fieldValue}>
+                            <Link
+                                className={props.classes.link}
+                                to={`/tags/${kebabCase(tag.fieldValue)}/`}
+                            >
+                                {tag.fieldValue} ({tag.totalCount})
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-export default TagsPageRoute;
+export default injectSheet(styles)(TagsPageRoute);
 
 export const pageQuery = graphql`
     query TagsQuery {

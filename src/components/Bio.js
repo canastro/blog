@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import 'typeface-montserrat';
 import 'typeface-merriweather';
@@ -5,23 +6,43 @@ import Twitter from 'react-icons/lib/fa/twitter';
 import StackOverflow from 'react-icons/lib/fa/stack-overflow';
 import Linkedin from 'react-icons/lib/fa/linkedin';
 import Gravatar from 'react-gravatar';
+import injectSheet from 'react-jss';
 
 import {rhythm} from '../utils/typography';
 
-export default () => (
-    <div
-        style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginBottom: rhythm(2.5)
-        }}
-    >
+const styles = {
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: rhythm(2.5)
+    },
+    gravatar: {
+        marginRight: rhythm(1 / 2),
+        marginBottom: 0
+    },
+    social: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        width: 150,
+        alignSelf: 'center'
+    }
+};
+
+type Props = {
+    classes: {[string]: string}
+};
+
+/**
+ * Bop component
+ * @method Bio
+ * @param  {Object} classes - jss classes
+ * @returns {Node} react node
+ */
+const Bio = ({classes}: Props) => (
+    <div className={classes.root}>
         <div style={{display: 'flex'}}>
             <Gravatar
-                style={{
-                    marginRight: rhythm(1 / 2),
-                    marginBottom: 0
-                }}
+                className={classes.gravatar}
                 size={75}
                 email="ricardocanastro@gmail.com"
             />
@@ -32,23 +53,18 @@ export default () => (
                 Portugal and currently working for Paddy Power Betfair.
             </p>
         </div>
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                width: 150,
-                alignSelf: 'center'
-            }}
-        >
-            <a name="twitter" href="//www.twitter.com/canastro">
+        <div className={classes.social}>
+            <a title="twitter" href="//www.twitter.com/canastro">
                 <Twitter />
             </a>
-            <a name="linkedin" href="//www.linkedin.com/in/ricardocanastro">
+            <a title="linkedin" href="//www.linkedin.com/in/ricardocanastro">
                 <Linkedin />
             </a>
-            <a name="stackoverflow" href="//stackoverflow.com/users/236205/canastro">
+            <a title="stackoverflow" href="//stackoverflow.com/users/236205/canastro">
                 <StackOverflow />
             </a>
         </div>
     </div>
 );
+
+export default injectSheet(styles)(Bio);
