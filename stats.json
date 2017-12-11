@@ -5,8 +5,8 @@
       "component---src-pages-index-js-4b3b0fc4309febdb6fa8.js.map"
     ],
     "path---tags": [
-      "path---tags-cbb44796f36d09630ea1.js",
-      "path---tags-cbb44796f36d09630ea1.js.map"
+      "path---tags-8d3ef70c50dab93ca1b9.js",
+      "path---tags-8d3ef70c50dab93ca1b9.js.map"
     ],
     "path---": [
       "path----557518bd178906f8d58a.js",
@@ -20,10 +20,6 @@
       "path---tags-performance-814aebdb6312010f9577.js",
       "path---tags-performance-814aebdb6312010f9577.js.map"
     ],
-    "path---tags-rollup": [
-      "path---tags-rollup-55e53c743188c391b5d3.js",
-      "path---tags-rollup-55e53c743188c391b5d3.js.map"
-    ],
     "component---node-modules-gatsby-plugin-offline-app-shell-js": [
       "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js",
       "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
@@ -36,13 +32,9 @@
       "component---src-layouts-index-js-7fbacb6e7d2cb985259a.js",
       "component---src-layouts-index-js-7fbacb6e7d2cb985259a.js.map"
     ],
-    "path---tags-opensource": [
-      "path---tags-opensource-c647951c68407c73d687.js",
-      "path---tags-opensource-c647951c68407c73d687.js.map"
-    ],
     "path---index": [
-      "path---index-53c6310638501c2c6311.js",
-      "path---index-53c6310638501c2c6311.js.map"
+      "path---index-445e32ad59965a2fb95e.js",
+      "path---index-445e32ad59965a2fb95e.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-e82f20c3cb7c81ee8786.js",
@@ -67,8 +59,8 @@
       "path---tags-eslint-33f50647596e551d6dc7.js.map"
     ],
     "path---tags-flow": [
-      "path---tags-flow-b4925a11fa4d3e440db4.js",
-      "path---tags-flow-b4925a11fa4d3e440db4.js.map"
+      "path---tags-flow-4194b94fe90db6fd4068.js",
+      "path---tags-flow-4194b94fe90db6fd4068.js.map"
     ],
     "component---src-pages-tags-js": [
       "component---src-pages-tags-js-f02721bd53559dc5af81.js",
@@ -86,14 +78,10 @@
       "path---tags-dev-environment-b5d811250c6ac492203c.js",
       "path---tags-dev-environment-b5d811250c6ac492203c.js.map"
     ],
-    "path---tags-types": [
-      "path---tags-types-1456dc7fd78442d4cd17.js",
-      "path---tags-types-1456dc7fd78442d4cd17.js.map"
-    ],
     "app": [
-      "app-6a98c557eb8cef9c6ec8.js",
+      "app-1e23d0f7845bd46779dc.js",
       "build-js-styles.css",
-      "app-6a98c557eb8cef9c6ec8.js.map",
+      "app-1e23d0f7845bd46779dc.js.map",
       "build-js-styles.css.map"
     ],
     "path---2017-12-08-power-of-flow-runtime": [
@@ -103,10 +91,6 @@
     "path---404": [
       "path---404-a0e39f21c11f6a62c5ab.js",
       "path---404-a0e39f21c11f6a62c5ab.js.map"
-    ],
-    "path---2017-12-11-lib-rollup-flow": [
-      "path---2017-12-11-lib-rollup-flow-aebf213a3ae529577a24.js",
-      "path---2017-12-11-lib-rollup-flow-aebf213a3ae529577a24.js.map"
     ]
   }
 }
