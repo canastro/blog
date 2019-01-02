@@ -10,14 +10,14 @@ date: "2019-01-01T22:00:00.000Z"
 ---
 
 This is a series of posts about how to create a module of reusable ui components with typescript, storybook and styled components:
-* Part 1 - Bootstrap your project and sample app
-* Part 2 - Adding a default theme
+* Part 1 - React UI-Kit - Setup, Create first component and Sample app
+* Part 2 - React UI-Kit - Adding a theme
 
-It's pretty common to repeat yourself and recreate the same basic ui components multiple times when starting new projects. In this post I'll try  to guide you in creating a reusable module for your UI components.
+It's pretty common to repeat yourself and recreate the same basic ui components multiple times when starting new projects. In this post I'll try to guide you in creating a reusable module for your UI components.
 
 This project should be self-documented through tsdocs, have a great way for developers (and designers or product owners) to see the available components, all their different options / behaviours and how to use it.
 
-The tools we're going to be using are: **React**, **Typescript**, **Storybook** and **Styled-components**.
+The tools we're going to use are: **React**, **Typescript**, **Storybook** and **Styled-components**.
 
 # Kickoff and setup
 
@@ -226,7 +226,7 @@ const ButtonSpan = styled.span`
   text-transform: uppercase;
 `;
 
-export const StyledButton = (props: Props) => {
+export const StyledButton = (props: Props): React.ReactNode => {
   const { children, onClick, disabled = false } = props;
 
   return (
@@ -297,5 +297,16 @@ const Comp = () => (
 So far we used ` npm link `, but this will only work while using locally. Next step would be publishing your module into npm, check how to [Creating and publishing unscoped public packages](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages) or [Creating and publishing scoped public packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages).
 
 After publishing you just need to install your module as you would install any other npm dependency.
+
+
+# Conclusion
+
+I hope that by the end of this articled I helped you to:
+* Configure typescript
+* Configure storybook with some good addons and integration with typescript
+* Create some basic styled-components
+* Understand how can a app consume our UI kit
+
+So we got the fundamentals to build a reusable ui kit. But we can still improve it, and we will, in part 2.
 
 Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)

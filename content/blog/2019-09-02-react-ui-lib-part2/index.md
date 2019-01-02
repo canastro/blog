@@ -10,8 +10,8 @@ date: "2019-01-02T22:00:00.000Z"
 ---
 
 This is a series of posts about how to create a module of reusable ui components with typescript, storybook and styled components:
-* Part 1 - Bootstrap your project and sample app
-* Part 2 - Adding a default theme
+* Part 1 - React UI-Kit - Setup, Create first component and Sample app
+* Part 2 - React UI-Kit - Adding a theme
 
 Most likely your components will have some common UI characteristics, such as colors, paddings, fonts, etc. having a theme to normalize this will come handy. 
 
@@ -35,14 +35,74 @@ export default palette;
 ```js
 import palette from './palette';
 
-export default {
-    palette
-};
+export default { palette };
 ```
+
+But if you have your theme composed as static objects the user will not have the oportunity to adapt the components to match subtle changes in their app... So lets change the approach a little bit, lets change the theme and the palette to be a function to allow the user to provide some overrides:
+
+**src/theme/index.ts**:
+```js
+import createPalette from './create-palette';
+import createTypography from './create-typography';
+import spacing from './spacing';
+
+const createTheme = (options: any = {}): any => {
+  const {
+    palette: paletteInput = {},
+    typography: typographyInput = {},
+  } = options;
+
+  const palette = createPalette(paletteInput)
+  const typography = createTypography(palette, typographyInput);
+
+  return {
+    palette,    // our color palette
+    spacing,    // a spacing unit to be used on paddings / margins / etc.
+    typography  // fonts and fontSizes theme
+  };
+};
+
+export default createTheme;
+
+```
+
+**src/theme/palette.ts**:
+```js
+const createPalette = (palette: any): any => {
+  const {
+    white = '#fff',
+    grey = '#f7f9fa',
+    black = '#222',
+    primary = '#6d30e7',
+    secondary = '#dfdded'
+  } = palette;
+
+  const output = {
+    white,
+    grey,
+    black,
+    primary,
+    secondary
+  };
+
+  return output;
+};
+
+export default createPalette;
+```
+
+So now that we have our theme builder, lets see how we use this.
 
 In order to use this theme we're going to use the styled-components [ThemeProvider](https://www.styled-components.com/docs/advanced#theming), the usage would be something like this:
 
 ```js 
+const theme = createTheme({
+  palette: {
+    primary: 'blue',
+    secondary: 'red'
+  }
+});
+
 const MyPage = () => (
   <ThemeProvider theme={theme}>
     <StyledButton>Hello World!</StyledButton>
@@ -50,24 +110,36 @@ const MyPage = () => (
 );
 ```
 
-But, as you might notice, the StyleButton does not do anything with the provided theme, so we need to change something. If you go back to your **styled-button.jsx** you can change your RootStyledButton to use theme colors instead of hardcoded colors for example. To access the theme you add a function to your template literal and get the theme from the props:
+Now lets update the StyleButton to use our theme variables. If you go back to your **styled-button.jsx** you can change your styled components to use theme colors instead of hardcoded colors for example. To access the theme you add a function to your template literal and get the theme from the props:
 
 ```js
 const RootStyledButton = styled.button`
-  padding: 0px 20px;
+  cursor: pointer;
+  padding: 0px ${props => props.theme.spacing.unit * 2};
   height: 49px;
   border-radius: 2px;
-  border: 2px solid #3d5567;
+  border: 2px solid ${props => props.theme.palette.white};
   display: inline-flex;
   background-color: ${props =>
     props.disabled ? props.theme.palette.secondary : props.theme.palette.primary};
+`;
+
+const ButtonSpan = styled.span`
+  margin: auto;
+  font-size: ${props => props.theme.typography.fontSizeButton};
+  font-weight: ${props => props.theme.typography.fontWeightBold};
+  text-align: center;
+  color: ${props => props.theme.palette.white};
+  text-transform: uppercase;
 `;
 ```
 
 So, now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, so just make sure you import the ThemeProvider and the theme and add your decorator to your story:
 
 ```js
-.addDecorator(renderStory => <ThemeProvider theme={theme}>{renderStory()}</ThemeProvider>)
+.addDecorator(renderStory => (
+  <ThemeProvider theme={theme}>{renderStory()}</ThemeProvider>
+))
 ```
 
 Update your **index.ts** to also export your theme related files:
