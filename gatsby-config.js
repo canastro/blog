@@ -10,6 +10,7 @@ module.exports = {
             linkedin: '//www.linkedin.com/in/ricardocanastro'
         }
     },
+    pathPrefix: '/blog',
     plugins: [
         {
             resolve: 'gatsby-plugin-google-analytics',
