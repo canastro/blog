@@ -1,5 +1,5 @@
 ---
-title: React UI-Kit - with Typescript, storybook and styled-components
+title: React UI-Kit - Setup, Create first component and Sample app (Part 1)
 tags:
   - react
   - typescript
@@ -9,13 +9,19 @@ draft: false
 date: "2019-01-01T22:00:00.000Z"
 ---
 
+This is a series of posts about how to create a module of reusable ui components with typescript, storybook and styled components:
+* Part 1 - Bootstrap your project and sample app
+* Part 2 - Adding a default theme
+
 It's pretty common to repeat yourself and recreate the same basic ui components multiple times when starting new projects. In this post I'll try  to guide you in creating a reusable module for your UI components.
 
 This project should be self-documented through tsdocs, have a great way for developers (and designers or product owners) to see the available components, all their different options / behaviours and how to use it.
 
+The tools we're going to be using are: **React**, **Typescript**, **Storybook** and **Styled-components**.
+
 # Kickoff and setup
 
-Create a folder for your ui-kit, lets call it, `bob-ross-kit`. Do the npm init thing and add the following dependencies:
+Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the npm init thing and add the following dependencies:
 
 ```json
   "devDependencies": {
@@ -46,24 +52,28 @@ WOW, thats a lot of dependencies for a empty project :D Do not worry, we're goin
 
 > Storybook is a UI development environment and playground for UI components. The tool enables users to create components independently and showcase components interactively in an isolated development environment.
 
-We're going to add [storybook](https://storybook.js.org/) into your project a a few addons to add extra features to our stories.
+We're going to add [storybook](https://storybook.js.org/) and a few addons to add extra features to our stories.
+
+> By default, Storybook comes with a way to list stories and visualize them. Addons implement extra features for Storybooks to make them more useful.
+
 
 **[@storybook/addon-info](https://www.npmjs.com/package/@storybook/addon-info):** 
-show additional information about your stories, properly configured it can show jsdocs of your props and the jsx of the usage of your component
+show additional information about your stories, properly configured it can show docs of your props and the jsx of the usage of your component
 
 **[@storybook/addon-knobs](https://www.npmjs.com/package/@storybook/addon-knobs):**
 adds a section on the bottom where you can add props modifiers to see how a component reacts to different props;
 
 
-In order to configure storybook, start by creating a `.storybook` folder with `addons.js` and `config.js` files.
+In order to configure storybook, start by creating a **.storybook** folder with **addons.js** and **config.js** files.
 
-1. Create a `addons.js` file to import our addons
+1. Create a **addons.js** file to import our addons that need a register step:
+
 ```js
 import '@storybook/addon-knobs/register';
 ```
 
 
-2. Create a `config.js` file. Here we configure our addons and tell storybook how to load your stories. Personally I prefer to have the stories as a file next to the component, prefixed with `.stories.js`.
+2. Create a **config.js** file. Here we configure our addons and tell storybook how to load your stories. Personally I prefer to have the stories as a file next to the component, prefixed with **.stories.js**.
 
 ```js
 import { addDecorator, configure, setAddon } from '@storybook/react';
@@ -83,7 +93,7 @@ configure(loadStories, module);
 ```
 
 
-3. Add a storybook script to your package.json: 
+3. Add a storybook script to your package.json.
 
 ```json
 "scripts": {
@@ -98,7 +108,7 @@ configure(loadStories, module);
 Besides the obvious of adding static typing to our code, using [typescript](https://www.typescriptlang.org/) is also great for IDE integration. For a reusable module is really great to have a awesome autocomplete, this will allow developers to use your components without having to jump to the documentation every time.
 
 
-1. Init the typescript setup with `npx tsc --init` this should create a default `tsconfig` file and make some changes to it:
+1. Init the typescript setup with `npx tsc --init` this should create a default **tsconfig** file and make some changes to it:
 
 ```json
 "outDir": "build/lib",
@@ -113,7 +123,7 @@ Besides the obvious of adding static typing to our code, using [typescript](http
 "declaration": true
 ```
 
-2. In order to use storybook with typescript we need to create a `.storybook/webpack.config.js` file:
+2. In order to use storybook with typescript we need to create a **.storybook/webpack.config.js** file:
 
 ```js
 const path = require('path');
@@ -153,12 +163,13 @@ export interface Props {
 Becomes: 
 ![TS DocGen Storybook](./ts-docgen-storybook-prop-types.png)
 
-3. Add a build script to your package.json:
+3. Add a build and watch script to your package.json:
 
 ```json
 "scripts": {
     ...
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "tsc --watch"
 },
 ```
 
@@ -167,13 +178,16 @@ This is not exactly required, you can call directly tsc, but personally I prefer
 ## Styled Components
 > Utilising tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!
 
-1. Create a .babelrc file in the root of your project with: `{ "plugins": ["babel-plugin-styled-components"] }`
+1. Create a .babelrc file in the root of your project with: 
+```json
+{ "plugins": ["babel-plugin-styled-components"] }
+```
 
 And thats it. The project is finally configured... 
 
 # Create your first component
 
-Lets create a simple button, in a file called `src/styled-button/styled-button.jsx`:
+Lets create a simple button, in a file called **src/styled-button/styled-button.jsx**:
 
 ```js
 import * as React from 'react';
@@ -225,8 +239,8 @@ export const StyledButton = (props: Props) => {
 
 # Create your first story
 
-As mentioned before, we conventioned to have our stories next to our components with the prefix `.stories.jsx`. So lets create a file called 
-`styled-button.stories.jsx` next to our component with the following content:
+As mentioned before, we conventioned to have our stories next to our components with the prefix **.stories.jsx**. So lets create a file called 
+**styled-button.stories.jsx** next to our component with the following content:
 
 ```js
 import React from 'react';
@@ -247,62 +261,41 @@ As you can see we use some helper functions from `@storybook/addon-knobs`. These
 
 You can now run `npm run storybook`, open `http://localhost:6006/` and voilá.
 
-# Create a theme
 
-Probably your components will have some common UI characteristics, such as colors, paddings, fonts, etc. So having a theme to normalize this will come handy. 
-
-In this tutorial we're just going to create a palette for the theme, but lets create it in a separate file to promote some separation instead of creating a huge file with all theme variables.
-
-`src/theme/palette.ts`:
-```js
-const palette = {
-  white: '#fff',
-  grey: '#f7f9fa',
-  black: '#222',
-  primary: '#6d30e7',
-  secondary: '#dfdded'
-};
-
-export default palette;
-```
-
-`src/theme/index.ts`:
+# Prepare your project to be used by others
+1. Create a **index.ts** exporting the files you want to expose: 
 
 ```js
-import palette from './palette';
-
-export default {
-    palette
-};
+export { default as StyledButton } from './styled-button/styled-button';
 ```
 
-In order to use this theme we're going to use the styled-components [ThemeProvider](https://www.styled-components.com/docs/advanced#theming), the usage would be something like this:
+2. Do `npm link` on your bob-ross-kit project so that you can use it while developing without having to actually publish to npm.
 
-```js 
-const MyPage = () => (
-  <ThemeProvider theme={theme}>
-    <StyledButton>Hello World!</StyledButton>
-  </ThemeProvider>
-);
-```
+3. Update **package.json** with your main entry file: `"main": "build/lib/index.js",`
 
-But, has you might notice, the StyleButton does not do anything with the provided theme, so we need to change something. If you go back to your `styled-button.jsx` you can change your RootStyledButton to use theme colors instead of hardcoded colors for example. To access the theme you add a function to your template literal and get the theme from the props:
+# Consume our lib
+
+1. Create a project with `create-react-app`
+
+2. Do `npm link bob-ross-kit` to install our lib for development
+
+3. Now use your components within the provider, and they'll have access to the theme props:
 
 ```js
-const RootStyledButton = styled.button`
-  padding: 0px 20px;
-  height: 49px;
-  border-radius: 2px;
-  border: 2px solid ${props => props.theme.secondary};
-  display: inline-flex;
-  background-color: ${props => (props.disabled ? props.theme.secondary : props.theme.primary)};
-`;
+import React from 'react';
+import { StyledButton } from 'bob-ross-kit';
+
+const Comp = () => (
+    ...
+    <StyledButton onClick={() => console.log('clicked')}>Button</StyledButton>
+    <StyledButtton disabled>My Button</StyledButton>
+    ...
+)
 ```
 
-So, now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, so just make sure you import the ThemeProvider and the theme and add your decorator to your story:
+# Publishing
+So far we used ` npm link `, but this will only work while using locally. Next step would be publishing your module into npm, check how to [Creating and publishing unscoped public packages](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages) or [Creating and publishing scoped public packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages).
 
-```js
-.addDecorator(renderStory => <ThemeProvider theme={theme}>{renderStory()}</ThemeProvider>)
-```
+After publishing you just need to install your module as you would install any other npm dependency.
 
-# Publishing and Usage
+Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)

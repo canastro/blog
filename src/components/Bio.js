@@ -58,7 +58,8 @@ const Bio = () => (
                         <p style={styles.description}>
                             <strong>&#x22;Canastro's Notes&#x22;</strong>, is a software development
                             (mainly javascript) blog written by <strong>{author}</strong> a Software
-                            Developer based in Porto, Portugal and currently working for dashdash.
+                            Developer based in Porto, Portugal and currently working for
+                            {' '}<a href="//www.dashdash.com">dashdash</a>.
                         </p>
                     </div>
                     <div style={styles.social}>
