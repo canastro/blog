@@ -1,2 +1,0 @@
-webpackJsonp([0xcdbdd6ad2950],{584:function(t,e){t.exports={data:{site:{siteMetadata:{title:"What About This?"}},allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2017-12-11---lib-rollup-flow/"},frontmatter:{title:"Create a lib bundled with Rollup and exposing Flow Types"}}}]}},pathContext:{tag:"types"}}}});
-//# sourceMappingURL=path---tags-types-1456dc7fd78442d4cd17.js.map

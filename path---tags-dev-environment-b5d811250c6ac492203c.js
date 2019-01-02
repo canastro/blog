@@ -1,2 +1,0 @@
-webpackJsonp([0xc15354fb53a8],{573:function(t,e){t.exports={data:{site:{siteMetadata:{title:"What About This?"}},allMarkdownRemark:{totalCount:2,edges:[{node:{fields:{slug:"/2017-12-08---power-of-flow-runtime/"},frontmatter:{title:"With the Power of Flow Runtime!"}}},{node:{fields:{slug:"/2017-12-07---eslint-configuration/"},frontmatter:{title:"ESLint Configurations - Your Project, Your Rules!"}}}]}},pathContext:{tag:"dev environment"}}}});
-//# sourceMappingURL=path---tags-dev-environment-b5d811250c6ac492203c.js.map
