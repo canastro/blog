@@ -1,92 +1,82 @@
-// @flow
-import React from 'react';
-import Helmet from 'react-helmet';
-import Link from 'gatsby-link';
-import injectSheet from 'react-jss';
+import React, { Component } from 'react'
+import { Link, graphql } from 'gatsby'
 
-import typography from '../utils/typography';
-import Disqus from '../components/Disqus';
-
-const {rhythm, scale} = typography;
+import Bio from '../components/Bio'
+import Layout from '../components/Layout'
+import SEO from '../components/seo'
+import { rhythm, scale } from '../utils/typography'
+import Disqus from '../components/Disqus'
 
 const styles = {
-    smallText: {
-        ...scale(-1 / 5),
-        display: 'block',
-        marginBottom: rhythm(1)
-    },
-    hr: {marginBottom: rhythm(1)}
-};
+  smallText: {
+    ...scale(-1 / 5),
+    display: `block`,
+    marginBottom: rhythm(1),
+    marginTop: rhythm(-1),
+  },
+  hr: { marginBottom: rhythm(1) },
+  navigation: {
+    display: `flex`,
+    flexWrap: `wrap`,
+    justifyContent: `space-between`,
+    listStyle: `none`,
+    padding: 0,
+  },
+}
 
-type Props = {
-    data: Object,
-    pathContext: Object,
-    classes: {[string]: string}
-};
+const BlogPostTemplate = props => {
+  const post = props.data.markdownRemark
+  const siteTitle = props.data.site.siteMetadata.title
+  const { previous, next } = props.pageContext
 
-/**
- * Blog Post template
- * @method BlogPost
- * @param   {Object} props - react props
- * @returns {Node} react node
- */
-const BlogPost = (props: Props) => {
-    const {classes, data} = props;
-    const post = data.markdownRemark;
+  return (
+    <Layout location={props.location} title={siteTitle}>
+      <SEO title={post.frontmatter.title} description={post.excerpt} />
+      <h1>{post.frontmatter.title}</h1>
+      <p style={styles.smallText}>{post.frontmatter.date}</p>
+      <div dangerouslySetInnerHTML={{ __html: post.html }} />
 
-    let tagsSection;
-    if (props.data.markdownRemark.fields.tagSlugs) {
-        const tagsArray = props.data.markdownRemark.fields.tagSlugs;
-        const tags = tagsArray.map((tag, i) => {
-            const divider = i < tagsArray.length - 1 && <span> | </span>;
-            return (
-                <span key={tag}>
-                    <Link to={tag}>{props.data.markdownRemark.frontmatter.tags[i]}</Link>
-                    {divider}
-                </span>
-            );
-        });
+      <hr style={styles.hr} />
+      <Disqus postNode={post} slug={props.pageContext.slug} />
 
-        tagsSection = <em className={classes.smallText}>Tagged with {tags}</em>;
-    }
+      <ul style={styles.navigation}>
+        <li>
+          {previous && (
+            <Link to={previous.fields.slug} rel="prev">
+              ← {previous.frontmatter.title}
+            </Link>
+          )}
+        </li>
+        <li>
+          {next && (
+            <Link to={next.fields.slug} rel="next">
+              {next.frontmatter.title} →
+            </Link>
+          )}
+        </li>
+      </ul>
+    </Layout>
+  )
+}
 
-    return (
-        <div>
-            <Helmet
-                title={`${post.frontmatter.title}`}
-                meta={[{name: 'description', content: post.excerpt}]}
-            />
-            <h1>{post.frontmatter.title}</h1>
-            <div dangerouslySetInnerHTML={{__html: post.html}} />
-            {tagsSection}
-            <p className={classes.smallText}>Posted {post.frontmatter.date}</p>
-            <hr className={classes.hr} />
-            <Disqus postNode={post} slug={props.pathContext.slug} />
-        </div>
-    );
-};
-
-export default injectSheet(styles)(BlogPost);
+export default BlogPostTemplate
 
 export const pageQuery = graphql`
-    query BlogPostBySlug($slug: String!) {
-        site {
-            siteMetadata {
-                author
-                homeCity
-            }
-        }
-        markdownRemark(fields: {slug: {eq: $slug}}) {
-            html
-            excerpt
-            fields {
-                tagSlugs
-            }
-            frontmatter {
-                title
-                tags
-                date(formatString: "MMMM DD, YYYY")
-            }
-        }
+  query BlogPostBySlug($slug: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
     }
-`;
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      excerpt(pruneLength: 160)
+      html
+      frontmatter {
+        title
+        date(formatString: "MMMM DD, YYYY")
+      }
+    }
+  }
+`

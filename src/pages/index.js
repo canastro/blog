@@ -1,85 +1,69 @@
-// @flow
-import React from 'react';
-import Link from 'gatsby-link';
-import get from 'lodash/get';
-import Helmet from 'react-helmet';
-import injectSheet from 'react-jss';
+import React from 'react'
+import { Link, graphql } from 'gatsby'
 
-import Bio from '../components/Bio';
-import {rhythm} from '../utils/typography';
+import Bio from '../components/Bio'
+import Layout from '../components/Layout'
+import SEO from '../components/seo'
+import { rhythm } from '../utils/typography'
 
-const styles = {
-    title: {marginBottom: rhythm(1 / 4)},
-    link: {boxShadow: 'none'}
-};
-
-type Props = {
-    data: Object,
-    classes: {[string]: string}
-}
-
-/**
- * Main component
- * @method Main
- * @param  {Object} props - react Props
- * @returns {Node} react node
- */
-const Main = (props: Props) => {
-    const {data, classes} = props;
-    const siteTitle = get(data, 'site.siteMetadata.title');
-    const posts = get(data, 'allMarkdownRemark.edges');
+class BlogIndex extends React.Component {
+  render() {
+    const { data } = this.props
+    const siteTitle = data.site.siteMetadata.title
+    const posts = data.allMarkdownRemark.edges
 
     return (
-        <div>
-            <Helmet htmlAttributes={{lang: 'en'}} title={siteTitle} />
-            <Bio />
-            {posts &&
-                posts.map(({node}) => {
-                    const title = get(node, 'frontmatter.title') || node.fields.slug;
-                    return (
-                        <div key={node.fields.slug}>
-                            <h3 className={classes.title}>
-                                <Link className={classes.link} to={node.fields.slug}>
-                                    {title}
-                                </Link>
-                            </h3>
-                            <small>{node.frontmatter.date}</small>
-                            <p dangerouslySetInnerHTML={{__html: node.excerpt}} />
-                        </div>
-                    );
-                })}
-        </div>
-    );
-};
+      <Layout location={this.props.location} title={siteTitle}>
+        <SEO
+          title="All posts"
+          keywords={[`blog`, `gatsby`, `javascript`, `react`]}
+        />
+        <Bio />
+        {posts.map(({ node }) => {
+          const title = node.frontmatter.title || node.fields.slug
+          return (
+            <div key={node.fields.slug}>
+              <h3
+                style={{
+                  marginBottom: rhythm(1 / 4),
+                }}
+              >
+                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                  {title}
+                </Link>
+              </h3>
+              <small>{node.frontmatter.date}</small>
+              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+            </div>
+          )
+        })}
+      </Layout>
+    )
+  }
+}
 
-export default injectSheet(styles)(Main);
+export default BlogIndex
 
 export const pageQuery = graphql`
-    query IndexQuery {
-        site {
-            siteMetadata {
-                title
-                author
-                homeCity
-            }
-        }
-        allMarkdownRemark(
-            limit: 2000
-            sort: {fields: [frontmatter___date], order: DESC}
-            filter: {frontmatter: {draft: {ne: true}}}
-        ) {
-            edges {
-                node {
-                    excerpt
-                    fields {
-                        slug
-                    }
-                    frontmatter {
-                        date(formatString: "DD MMMM, YYYY")
-                        title
-                    }
-                }
-            }
-        }
+  query {
+    site {
+      siteMetadata {
+        title
+      }
     }
-`;
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+          }
+        }
+      }
+    }
+  }
+`

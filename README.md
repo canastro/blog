@@ -7,4 +7,6 @@ My personal blog.
 * Unit tests
 
 # Pending articles
-* React Router Code Split
+* React and canvas with react-konva
+* React UI lib with typescript, storybook and glamour
+

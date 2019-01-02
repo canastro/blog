@@ -1,12 +1,15 @@
 module.exports = {
     siteMetadata: {
-        title: 'What About This?',
+        title: 'Canastro\'s notes',
         author: 'Ricardo Canastro',
         description: 'A blog!',
-        homeCity: 'Porto',
-        siteUrl: 'https://canastro.github.io/blog/'
+        siteUrl: 'https://canastro.github.io/blog/',
+        social: {
+            twitter: '//www.twitter.com/canastro',
+            stackoverflow: '//stackoverflow.com/users/236205/canastro',
+            linkedin: '//www.linkedin.com/in/ricardocanastro'
+        }
     },
-    pathPrefix: '/blog',
     plugins: [
         {
             resolve: 'gatsby-plugin-google-analytics',
@@ -16,28 +19,17 @@ module.exports = {
             }
         },
         {
-            resolve: 'gatsby-plugin-manifest',
+            resolve: 'gatsby-source-filesystem',
             options: {
-                name: 'What About This?',
-                short_name: 'WAT?',
-                start_url: '/blog',
-                background_color: 'white',
-                theme_color: 'white',
-                display: 'minimal-ui',
-                icons: [
-                    {
-                        src: '/favicons/logo.jpeg',
-                        sizes: '200x200',
-                        type: 'image/jpg'
-                    }
-                ]
+                path: `${__dirname}/content/blog`,
+                name: 'blog'
             }
         },
         {
             resolve: 'gatsby-source-filesystem',
             options: {
-                path: `${__dirname}/src/pages`,
-                name: 'pages'
+                path: `${__dirname}/content/assets`,
+                name: 'assets'
             }
         },
         {
@@ -47,8 +39,7 @@ module.exports = {
                     {
                         resolve: 'gatsby-remark-images',
                         options: {
-                            maxWidth: 590,
-                            sizeByPixelDensity: true
+                            maxWidth: 590
                         }
                     },
                     {
@@ -63,14 +54,23 @@ module.exports = {
                 ]
             }
         },
-        'gatsby-plugin-sitemap',
         'gatsby-transformer-sharp',
-        'gatsby-plugin-feed',
         'gatsby-plugin-sharp',
+        'gatsby-plugin-feed',
+        {
+            resolve: 'gatsby-plugin-manifest',
+            options: {
+                name: 'Canastro\'s notes',
+                short_name: 'Canastro',
+                start_url: '/blog',
+                background_color: 'white',
+                theme_color: 'white',
+                display: 'minimal-ui',
+                icon: 'content/assets/gatsby-icon.png'
+            }
+        },
         'gatsby-plugin-offline',
         'gatsby-plugin-react-helmet',
-        'gatsby-plugin-jss',
-        // 'gatsby-plugin-preact',
         {
             resolve: 'gatsby-plugin-typography',
             options: {
