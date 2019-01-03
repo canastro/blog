@@ -142,6 +142,21 @@ So, now we need to update our story to also include the theme. Storybook has a f
 ))
 ```
 
+Also, we don't want our ThemeProvider documentation to polute our stories, so we need to update our `.storybook/config.js` file to ignore ThemeProvider in the info-addon for the propTypes table. Update your withInfo configuration to be like this:
+
+```js
+import { ThemeProvider } from 'styled-components';
+
+addDecorator(
+  withInfo({
+    header: true,
+    inline: true,
+    propTablesExclude: [ThemeProvider] // do not display propTable for HOC
+  })
+);
+```
+
+
 Update your **index.ts** to also export your theme related files:
 
 ```js

@@ -21,7 +21,7 @@ The tools we're going to use are: **React**, **Typescript**, **Storybook** and *
 
 # Kickoff and setup
 
-Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the npm init thing and add the following dependencies:
+Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the `npm init` thing and add the following dependencies:
 
 ```json
   "devDependencies": {
@@ -32,10 +32,10 @@ Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the npm init
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "@types/styled-components": "^4.1.4",
-    "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-plugin-styled-components": "^1.10.0",
-    "react-docgen-typescript-webpack-plugin": "^1.1.0",
+    "react-docgen-typescript-loader": "^3.0.0",
+    "ts-loader": "^5.3.2",
     "typescript": "^3.2.2"
   },
   "dependencies": {
@@ -52,7 +52,7 @@ WOW, thats a lot of dependencies for a empty project :D Do not worry, we're goin
 
 > Storybook is a UI development environment and playground for UI components. The tool enables users to create components independently and showcase components interactively in an isolated development environment.
 
-We're going to add [storybook](https://storybook.js.org/) and a few addons to add extra features to our stories.
+We're going to add [storybook](https://storybook.js.org/) and a few addons to add extra features to our stories. If you want a more detailed and beginner friendly intro to storybook, check out [Storybook for React - Getting Started](https://storybook.js.org/basics/guide-react/).
 
 > By default, Storybook comes with a way to list stories and visualize them. Addons implement extra features for Storybooks to make them more useful.
 
@@ -83,7 +83,7 @@ import { withKnobs } from '@storybook/addon-knobs/react';
 addDecorator(withInfo({ header: true, inline: true }));
 addDecorator(withKnobs);
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.jsx$/);
 
 function loadStories() {
   req.keys().forEach(file => req(file));
@@ -127,19 +127,19 @@ Besides the obvious of adding static typing to our code, using [typescript](http
 
 ```js
 const path = require('path');
-const TSDocgenPlugin = require('react-docgen-typescript-webpack-plugin');
-module.exports = (baseConfig, env, defaultConfig) => {
-  // webpack typescript loader
-  defaultConfig.module.rules.push({
-    test: /\.(ts|tsx)$/,
-    loader: require.resolve('awesome-typescript-loader'),
+
+module.exports = (baseConfig, env, config) => {
+  config.module.rules.push({
+    test: /\.tsx?$/,
+    include: path.resolve(__dirname, '../src'),
+    use: [require.resolve('ts-loader'), require.resolve('react-docgen-typescript-loader')]
   });
 
-  // Doc gen plugin
-  defaultConfig.plugins.push(new TSDocgenPlugin());
-  defaultConfig.resolve.extensions.push('.ts', '.tsx');
-  return defaultConfig;
+  config.resolve.extensions.push('.ts', '.tsx');
+
+  return config;
 };
+
 ```
 
 You might notice the `TSDocgenPlugin` plugin. This will pick your tsdocs from your typings and together with `@storybook/addon-info` will endow your stories with info from your props. 
@@ -160,7 +160,7 @@ export interface Props {
 }
 ```
 
-Becomes: 
+Will be rendered as a table in our story, like this: 
 ![TS DocGen Storybook](./ts-docgen-storybook-prop-types.png)
 
 3. Add a build and watch script to your package.json:
@@ -187,7 +187,7 @@ And thats it. The project is finally configured...
 
 # Create your first component
 
-Lets create a simple button, in a file called **src/styled-button/styled-button.jsx**:
+Lets create a simple button, in a file called **src/styled-button/styled-button.tsx**:
 
 ```js
 import * as React from 'react';
@@ -226,7 +226,7 @@ const ButtonSpan = styled.span`
   text-transform: uppercase;
 `;
 
-export const StyledButton = (props: Props): React.ReactNode => {
+export const StyledButton: React.SFC<Props> = (props: Props): React.ReactNode => {
   const { children, onClick, disabled = false } = props;
 
   return (
