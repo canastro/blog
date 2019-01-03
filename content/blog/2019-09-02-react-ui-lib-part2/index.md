@@ -212,3 +212,11 @@ const Comp = () => (
     ...
 )
 ```
+
+# Conclusion
+
+By the end of this article your UI Kit should be ready to be themable and provide a default theme.
+
+# Credits
+
+The way theme is configurable is heavily based on the way Material-UI does his themes with JSS.
