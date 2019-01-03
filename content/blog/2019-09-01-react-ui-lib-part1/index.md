@@ -304,9 +304,12 @@ After publishing you just need to install your module as you would install any o
 I hope that by the end of this articled I helped you to:
 * Configure typescript
 * Configure storybook with some good addons and integration with typescript
-* Create some basic styled-components
-* Understand how can a app consume our UI kit
+* Create basic styled-components
+* Understand how a app can consume our UI kit
 
 So we got the fundamentals to build a reusable ui kit. But we can still improve it, and we will, in part 2.
 
 Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)
+
+# Credits
+This post is heavily based on Shawn Wang egghead's course ["Design Systems with React and Typescript in Storybook"](https://egghead.io/courses/design-systems-with-react-and-typescript-in-storybook). I did some tweaks and started adding some features on top of whats accomplished by the end of that course.

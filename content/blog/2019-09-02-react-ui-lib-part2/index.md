@@ -40,35 +40,17 @@ export default { palette };
 
 But if you have your theme composed as static objects the user will not have the oportunity to adapt the components to match subtle changes in their app... So lets change the approach a little bit, lets change the theme and the palette to be a function to allow the user to provide some overrides:
 
-**src/theme/index.ts**:
-```js
-import createPalette from './create-palette';
-import createTypography from './create-typography';
-import spacing from './spacing';
-
-const createTheme = (options: any = {}): any => {
-  const {
-    palette: paletteInput = {},
-    typography: typographyInput = {},
-  } = options;
-
-  const palette = createPalette(paletteInput)
-  const typography = createTypography(palette, typographyInput);
-
-  return {
-    palette,    // our color palette
-    spacing,    // a spacing unit to be used on paddings / margins / etc.
-    typography  // fonts and fontSizes theme
-  };
-};
-
-export default createTheme;
-
-```
-
 **src/theme/palette.ts**:
 ```js
-const createPalette = (palette: any): any => {
+export type Palette = {
+  white: string;
+  grey: string;
+  black: string;
+  primary: string;
+  secondary: string;
+};
+
+const createPalette = (palette: any): Palette => {
   const {
     white = '#fff',
     grey = '#f7f9fa',
@@ -89,6 +71,37 @@ const createPalette = (palette: any): any => {
 };
 
 export default createPalette;
+```
+
+**src/theme/index.ts**:
+```js
+import createPalette, { Palette } from './create-palette';
+import createTypography, { Typography } from './create-typography';
+import spacing, { Spacing } from './spacing';
+
+export type Theme = {
+  palette: Palette,
+  typography: Typography,
+  spacing: Spacing
+};
+
+const createTheme = (options: any = {}): Theme => {
+  const {
+    palette: paletteInput = {},
+    typography: typographyInput = {},
+  } = options;
+
+  const palette = createPalette(paletteInput)
+  const typography = createTypography(palette, typographyInput);
+
+  return {
+    palette,    // our color palette
+    spacing,    // a spacing unit to be used on paddings / margins / etc.
+    typography  // fonts and fontSizes theme
+  };
+};
+
+export default createTheme;
 ```
 
 So now that we have our theme builder, lets see how we use this.
@@ -134,12 +147,14 @@ const ButtonSpan = styled.span`
 `;
 ```
 
-So, now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, so just make sure you import the ThemeProvider and the theme and add your decorator to your story:
+So, now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, so just make sure you import the ThemeProvider and the theme and add your decorator your `.storybook/config.js`:
 
 ```js
-.addDecorator(renderStory => (
-  <ThemeProvider theme={theme}>{renderStory()}</ThemeProvider>
-))
+addDecorator(renderStory => (
+    <ThemeProvider theme={createTheme()}>
+        {renderStory()}
+    </ThemeProvider>
+));
 ```
 
 Also, we don't want our ThemeProvider documentation to polute our stories, so we need to update our `.storybook/config.js` file to ignore ThemeProvider in the info-addon for the propTypes table. Update your withInfo configuration to be like this:
