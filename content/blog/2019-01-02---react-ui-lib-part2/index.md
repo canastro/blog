@@ -10,12 +10,12 @@ date: "2019-01-02T22:00:00.000Z"
 ---
 
 This is a series of posts about how to create a module of reusable ui components with typescript, storybook and styled components:
-* Part 1 - React UI-Kit - Setup, Create first component and Sample app
-* Part 2 - React UI-Kit - Adding a theme
+* [Part 1 - React UI-Kit - Setup, Create first component and Sample app](/2019-01-01---react-ui-lib-part1)
+* [Part 2 - React UI-Kit - Adding a theme](/2019-01-02---react-ui-lib-part2)
 
-Most likely your components will have some common UI characteristics, such as colors, paddings, fonts, etc. having a theme to normalize this will come handy. 
+Most likely your components will have some common UI traits, such as colors, paddings, fonts, etc. having a theme to normalize this will come handy. So whenever the design team decides that the primary color is going to change, you won't have to do find and replace... You just have to update your theme. :tada:
 
-In this tutorial we're just going to create a palette for the theme, but lets create it in a separate file to promote some separation instead of creating a huge file with all theme variables.
+In this tutorial we're just going to create a palette for the theme, but we're doing it in a separate file to promote some separation of concerns and try to be future proof.
 
 **src/theme/palette.ts**:
 ```js
@@ -38,7 +38,7 @@ import palette from './palette';
 export default { palette };
 ```
 
-But if you have your theme composed as static objects the user will not have the oportunity to adapt the components to match subtle changes in their app... So lets change the approach a little bit, lets change the theme and the palette to be a function to allow the user to provide some overrides:
+But if you have your theme composed as static objects the user will not have the opportunity to adapt the components to match subtle changes in their app... lets change the approach a little bit. Change the theme and the palette to be a function to allow the user to provide some overrides:
 
 **src/theme/palette.ts**:
 ```js
@@ -104,8 +104,6 @@ const createTheme = (options: any = {}): Theme => {
 export default createTheme;
 ```
 
-So now that we have our theme builder, lets see how we use this.
-
 In order to use this theme we're going to use the styled-components [ThemeProvider](https://www.styled-components.com/docs/advanced#theming), the usage would be something like this:
 
 ```js 
@@ -123,7 +121,7 @@ const MyPage = () => (
 );
 ```
 
-Now lets update the StyleButton to use our theme variables. If you go back to your **styled-button.jsx** you can change your styled components to use theme colors instead of hardcoded colors for example. To access the theme you add a function to your template literal and get the theme from the props:
+We should now update the StyleButton to use our theme variables. If you go back to your **styled-button.jsx** you can change your styled components to use theme colors instead of hard-coded colors. To access the theme add a function to your template literal and get the theme from the props. Every styled-component have access to the theme as props, if you want to use the theme outside of a styled-component you can [use the `withTheme` HoC](https://www.styled-components.com/docs/advanced#getting-the-theme-without-styled-components).
 
 ```js
 const RootStyledButton = styled.button`
@@ -147,7 +145,7 @@ const ButtonSpan = styled.span`
 `;
 ```
 
-So, now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, so just make sure you import the ThemeProvider and the theme and add your decorator your `.storybook/config.js`:
+Now we need to update our story to also include the theme. Storybook has a function called `addDecorator` which allows you to define a high order component that will be use with all your stories, Import styled-component ThemeProvider and your theme builder and add your decorator to `.storybook/config.js`:
 
 ```js
 addDecorator(renderStory => (
@@ -157,7 +155,9 @@ addDecorator(renderStory => (
 ));
 ```
 
-Also, we don't want our ThemeProvider documentation to polute our stories, so we need to update our `.storybook/config.js` file to ignore ThemeProvider in the info-addon for the propTypes table. Update your withInfo configuration to be like this:
+Also, we don't want our ThemeProvider documentation to pollute our stories, so we need to update our `.storybook/config.js` file to ignore ThemeProvider in the info-addon for the propTypes table. (Still haven't figured out how to not show the decorator on the story source, there is a [github issue about it](https://github.com/storybooks/storybook/issues/4801))
+
+Update your withInfo configuration to be like this:
 
 ```js
 import { ThemeProvider } from 'styled-components';

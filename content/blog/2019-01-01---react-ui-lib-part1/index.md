@@ -10,14 +10,14 @@ date: "2019-01-01T22:00:00.000Z"
 ---
 
 This is a series of posts about how to create a module of reusable ui components with typescript, storybook and styled components:
-* Part 1 - React UI-Kit - Setup, Create first component and Sample app
-* Part 2 - React UI-Kit - Adding a theme
+* [Part 1 - React UI-Kit - Setup, Create first component and Sample app](/2019-01-01---react-ui-lib-part1)
+* [Part 2 - React UI-Kit - Adding a theme](/2019-01-02---react-ui-lib-part2)
 
-It's pretty common to repeat yourself and recreate the same basic ui components multiple times when starting new projects. In this post I'll try to guide you in creating a reusable module for your UI components.
+Have you ever found yourself creating the same UI components over and over again when starting new projects? Or is your project so big that you would love to have a separate package with your most basic and reusable UI components? Do you find yourself digging your project's source code to figure how if a given component supports a feature that you need for a given situation? 
 
-This project should be self-documented through tsdocs, have a great way for developers (and designers or product owners) to see the available components, all their different options / behaviours and how to use it.
+In this blog post I'll try to guide you on how to setup a UI kit that is self-documented through tsdocs, and has a catalog of components that shows exactly how the components behave and all the features they support.
 
-The tools we're going to use are: **React**, **Typescript**, **Storybook** and **Styled-components**.
+The tools we're going to use are: [**React**](https://reactjs.org/), [**Typescript**](https://www.typescriptlang.org/), [**Storybook**](https://storybook.js.org/) and [**Styled-components**](https://www.styled-components.com/).
 
 # Kickoff and setup
 
@@ -45,7 +45,7 @@ Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the `npm ini
   }
 ```
 
-WOW, thats a lot of dependencies for a empty project :D Do not worry, we're going to use them all!
+WOW, thats a lot of dependencies for a empty project! Do not worry, we're going to use them all! :sweat_smile:
 
 
 ## Storybook
@@ -132,7 +132,10 @@ module.exports = (baseConfig, env, config) => {
   config.module.rules.push({
     test: /\.tsx?$/,
     include: path.resolve(__dirname, '../src'),
-    use: [require.resolve('ts-loader'), require.resolve('react-docgen-typescript-loader')]
+    use: [
+        require.resolve('ts-loader'), 
+        require.resolve('react-docgen-typescript-loader')
+    ]
   });
 
   config.resolve.extensions.push('.ts', '.tsx');
@@ -144,7 +147,7 @@ module.exports = (baseConfig, env, config) => {
 
 You might notice the `TSDocgenPlugin` plugin. This will pick your tsdocs from your typings and together with `@storybook/addon-info` will endow your stories with info from your props. 
 
-This:
+The following Props interface:
 ```js
 export interface Props {
   /** Button content  */
@@ -182,6 +185,12 @@ This is not exactly required, you can call directly tsc, but personally I prefer
 ```json
 { "plugins": ["babel-plugin-styled-components"] }
 ```
+
+Using the babel plugin is not mandatory, but as mentioned in their [github page](https://github.com/styled-components/babel-plugin-styled-components) it offers a set of useful features:
+
+* Consistently hashed component classNames between environments (a must for server-side rendering)
+* Better debugging through automatic annotation of your styled components based on their context in the file system, etc.
+* Various types of minification for styles and the tagged template literals styled-components uses
 
 And thats it. The project is finally configured... 
 
@@ -226,11 +235,18 @@ const ButtonSpan = styled.span`
   text-transform: uppercase;
 `;
 
+/*
+ * If you opt to do export default, you'll still need to have this 
+ * export for the TsDocGen work properly (I struggled to find this out)
+ */
 export const StyledButton: React.SFC<Props> = (props: Props): React.ReactNode => {
   const { children, onClick, disabled = false } = props;
 
   return (
-    <RootStyledButton disabled={disabled} onClick={!disabled ? onClick : noop}>
+    <RootStyledButton 
+        disabled={disabled} 
+        onClick={!disabled ? onClick : noop}
+    >
       <ButtonSpan>{children}</ButtonSpan>
     </RootStyledButton>
   );
@@ -239,8 +255,7 @@ export const StyledButton: React.SFC<Props> = (props: Props): React.ReactNode =>
 
 # Create your first story
 
-As mentioned before, we conventioned to have our stories next to our components with the prefix **.stories.jsx**. So lets create a file called 
-**styled-button.stories.jsx** next to our component with the following content:
+As mentioned in the storybook configuration, we conventioned to have our stories next to our components with the prefix **.stories.jsx**. So lets create a file called **styled-button.stories.jsx** next to our component with the following content:
 
 ```js
 import React from 'react';
@@ -257,9 +272,9 @@ storiesOf('StyledButton', module)
   ));
 ```
 
-As you can see we use some helper functions from `@storybook/addon-knobs`. These functions receive a name and a default value to pass to the component, while at the same time gathers info to display inputs to dynamically allow the user to change the values on the UI.
+As you can see we use some helper functions from `@storybook/addon-knobs`. These functions receive a name and a default value to pass to the component, while at the same time gathers info to allow the user to edit React props dynamically using the Storybook UI.
 
-You can now run `npm run storybook`, open `http://localhost:6006/` and voilá.
+You can now run `npm run storybook`, open `http://localhost:6006/` and voilà. :tada:
 
 
 # Prepare your project to be used by others
@@ -269,9 +284,12 @@ You can now run `npm run storybook`, open `http://localhost:6006/` and voilá.
 export { default as StyledButton } from './styled-button/styled-button';
 ```
 
-2. Do `npm link` on your bob-ross-kit project so that you can use it while developing without having to actually publish to npm.
+2. Update **package.json** with your main entry file: `"main": "build/lib/index.js",`
 
-3. Update **package.json** with your main entry file: `"main": "build/lib/index.js",`
+3. Do `npm link` on your bob-ross-kit project so that you can use it while developing without having to actually publish to npm.
+
+4. Run `npm run watch` if you want to keep updating your build when your files change.
+
 
 # Consume our lib
 
@@ -279,7 +297,7 @@ export { default as StyledButton } from './styled-button/styled-button';
 
 2. Do `npm link bob-ross-kit` to install our lib for development
 
-3. Now use your components within the provider, and they'll have access to the theme props:
+3. Now import and use your components:
 
 ```js
 import React from 'react';
@@ -313,3 +331,5 @@ Check the source code on of **bob-ross-kit** on [github](https://github.com/cana
 
 # Credits
 This post is heavily based on Shawn Wang egghead's course ["Design Systems with React and Typescript in Storybook"](https://egghead.io/courses/design-systems-with-react-and-typescript-in-storybook). I did some tweaks and started adding some features on top of whats accomplished by the end of that course.
+
+*If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
