@@ -87,7 +87,7 @@ module.exports = {
                 background_color: 'white',
                 theme_color: 'white',
                 display: 'minimal-ui',
-                icon: 'content/assets/gatsby-icon.png'
+                icon: 'content/assets/canastro-icon.png'
             }
         },
         'gatsby-plugin-offline',
