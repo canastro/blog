@@ -21,29 +21,23 @@ class Disqus extends Component {
      * @returns {Node} Discus component
      */
     render() {
-        const {postNode, slug} = this.props;
-        const post = postNode.frontmatter;
-        const url = `https://canastro.github.io/blog${slug}`;
+        const {frontmatter: postFrontmatter} = this.props;
 
         return (
-            <section>
-                <header>Comments</header>
-                <ReactDisqusComments
-                    shortname="what-about-this"
-                    identifier={post.title}
-                    title={post.title}
-                    url={url}
-                    category_id={post.category_id}
-                    onNewComment={this.notifyAboutComment}
-                />
-            </section>
+            <ReactDisqusComments
+                shortname="canastro-notes"
+                identifier={postFrontmatter.slug}
+                title={postFrontmatter.title}
+                url={window.location.href}
+                category_id={postFrontmatter.category_id}
+                onNewComment={this.notifyAboutComment}
+            />
         );
     }
 }
 
 Disqus.propTypes = {
-    postNode: PropTypes.object.isRequired,
-    slug: PropTypes.string.isRequired
+    frontmatter: PropTypes.object.isRequired
 };
 
 export default Disqus;

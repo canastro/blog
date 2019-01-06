@@ -21,6 +21,7 @@ exports.createPages = ({graphql, actions}) => {
                                     slug
                                 }
                                 frontmatter {
+                                    title
                                     path
                                     tags
                                 }
