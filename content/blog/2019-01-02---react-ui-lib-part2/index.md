@@ -184,7 +184,7 @@ Update your **index.ts** to also export your theme related files:
 
 ```js
 export { ThemeProvider } from 'styled-components';
-export { default as theme } from './theme';
+export { default as createTheme } from './theme';
 export { default as StyledButton } from './styled-button/styled-button';
 ```
 
@@ -197,7 +197,11 @@ We're exposing ThemeProvider from styled-components just so that we don't make t
 
 ```js
 import React from 'react';
-import { ThemeProvider, theme } from 'bob-ross-kit';
+import { ThemeProvider, createTheme } from 'bob-ross-kit';
+
+const theme = createTheme({ 
+  palette: { primary: 'blue', secondary: 'red' }  
+});
 
 const App = () => (
     <ThemeProvider theme={theme}>
