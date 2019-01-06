@@ -42,7 +42,7 @@ But if you have your theme composed as static objects the user will not have the
 
 **src/theme/palette.ts**:
 ```js
-export type Palette = {
+export interface Palette = {
   white: string;
   grey: string;
   black: string;
@@ -50,7 +50,11 @@ export type Palette = {
   secondary: string;
 };
 
-const createPalette = (palette: any): Palette => {
+export type PaletteInput = {
+  [K in keyof Palette]+?: Palette[K];
+}
+
+const createPalette = (palette: PaletteInput): Palette => {
   const {
     white = '#fff',
     grey = '#f7f9fa',
@@ -73,6 +77,8 @@ const createPalette = (palette: any): Palette => {
 export default createPalette;
 ```
 
+**Typescript tip:** We don't want to make it mandatory to send the full theme object when creating a new theme, therefore we cannot make the input type the same as the output type, the input type needs to have all keys optional. We can create a type from a interface using keyof to iterate all keys and then apply a modifier to make the given key optional, check [Typescript Mapped Types documentation](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
+
 **src/theme/index.ts**:
 ```js
 import createPalette, { Palette } from './create-palette';
@@ -85,11 +91,16 @@ export type Theme = {
   spacing: Spacing
 };
 
-const createTheme = (options: any = {}): Theme => {
+export type ThemeInput = {
+  palette?: PaletteInput,
+  typography?: TypographyInput
+}
+
+const createTheme = (options: ThemeInput): Theme => {
   const {
     palette: paletteInput = {},
-    typography: typographyInput = {},
-  } = options;
+    typography: typographyInput = {}
+  } = options || {};
 
   const palette = createPalette(paletteInput)
   const typography = createTypography(palette, typographyInput);
