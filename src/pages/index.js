@@ -10,12 +10,23 @@ import Tag from '../components/Tag';
 import {rhythm} from '../utils/typography';
 
 const styles = {
+    post: {
+        marginBottom: rhythm(2)
+    },
     h3: {
+        marginTop: rhythm(1 / 4),
         marginBottom: rhythm(1 / 4)
     },
     link: {boxShadow: 'none'},
     p: {marginBottom: 15},
-    tags: {display: 'flex'}
+    tags: {display: 'flex'},
+    titleWrapper: {
+        marginBottom: rhythm(1 / 4)
+    },
+    subtitle: {
+        color: 'black',
+        fontWeight: 700
+    }
 };
 
 /**
@@ -32,23 +43,27 @@ const BlogIndex = ({data, location}) => {
             <Bio />
             {posts.map(({node}) => {
                 const title = node.frontmatter.title || node.fields.slug;
+                const {subtitle} = node.frontmatter;
                 const tags = node.frontmatter.tags.map(tag => ({
                     text: tag,
                     link: `/tags/${kebabCase(tag)}/`
                 }));
 
                 return (
-                    <div key={node.fields.slug}>
-                        <h3 css={styles.h3}>
-                            <Link css={styles.link} to={node.fields.slug}>
-                                {title}
-                            </Link>
-                        </h3>
+                    <div css={styles.post} key={node.fields.slug}>
                         <small>{node.frontmatter.date}</small>
+                        <div css={styles.titleWrapper}>
+                            <h3 css={styles.h3}>
+                                <Link css={styles.link} to={node.fields.slug}>
+                                    {title}
+                                </Link>
+                            </h3>
+                            {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
+                        </div>
                         <p css={styles.p} dangerouslySetInnerHTML={{__html: node.excerpt}} />
                         <div css={styles.tags}>
                             {tags.map(tag => (
-                                <Tag {...tag} />
+                                <Tag key={tag.text} {...tag} />
                             ))}
                         </div>
                     </div>
@@ -82,6 +97,7 @@ export const pageQuery = graphql`
                     frontmatter {
                         date(formatString: "MMMM DD, YYYY")
                         title
+                        subtitle
                         tags
                     }
                 }

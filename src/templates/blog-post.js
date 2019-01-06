@@ -9,6 +9,12 @@ import Disqus from '../components/Disqus';
 import {rhythm, scale} from '../utils/typography';
 
 const styles = {
+    subtitle: {
+        display: 'block',
+        marginTop: rhythm(-1),
+        marginBottom: rhythm(1),
+        fontSize: '1.5rem'
+    },
     smallText: {
         ...scale(-1 / 5),
         display: 'block',
@@ -22,7 +28,7 @@ const styles = {
         listStyle: 'none',
         padding: 0
     },
-    tags: {display: 'flex', marginTop: rhythm(-0.5)}
+    tags: {display: 'flex'}
 };
 
 /**
@@ -34,15 +40,17 @@ const BlogPostTemplate = (props) => {
     const post = props.data.markdownRemark;
     const siteTitle = props.data.site.siteMetadata.title;
     const {previous, next, tags} = props.pageContext;
+    const {title, subtitle} = post.frontmatter;
 
     return (
         <Layout location={props.location} title={siteTitle}>
-            <SEO title={post.frontmatter.title} description={post.excerpt} />
+            <SEO title={title} description={post.excerpt} />
             <div css={styles.header}>
-                <h1>{post.frontmatter.title}</h1>
+                <h1>{title}</h1>
+                {subtitle && <strong css={styles.subtitle}>{subtitle}</strong>}
                 <div css={styles.tags}>
                     {tags.map(tag => (
-                        <Tag {...tag} />
+                        <Tag key={tag.text} {...tag} />
                     ))}
                 </div>
                 <p style={styles.smallText}>{post.frontmatter.date}</p>
@@ -94,6 +102,7 @@ export const pageQuery = graphql`
             html
             frontmatter {
                 title
+                subtitle
                 date(formatString: "MMMM DD, YYYY")
             }
         }
