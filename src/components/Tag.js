@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {Link} from 'gatsby';
+
 const styles = {
     root: {
         display: 'flex',
@@ -19,11 +21,16 @@ const styles = {
     }
 };
 
+/**
+ *
+ * @param {Object} props - props
+ * @returns {React.ReactNode} node
+ */
 const Tag = ({link, text}) => (
     <div css={styles.root}>
-        <a css={styles.a} href={link}>
+        <Link css={styles.a} to={link}>
             {text}
-        </a>
+        </Link>
     </div>
 );
 
