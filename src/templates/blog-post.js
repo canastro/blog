@@ -4,15 +4,15 @@ import {Link, graphql} from 'gatsby';
 
 import Layout from '../components/Layout';
 import SEO from '../components/Seo';
-import {rhythm, scale} from '../utils/typography';
+import Tag from '../components/Tag';
 import Disqus from '../components/Disqus';
+import {rhythm, scale} from '../utils/typography';
 
 const styles = {
     smallText: {
         ...scale(-1 / 5),
         display: 'block',
-        marginBottom: rhythm(1),
-        marginTop: rhythm(-1)
+        marginBottom: rhythm(1)
     },
     hr: {marginBottom: rhythm(1)},
     navigation: {
@@ -21,7 +21,8 @@ const styles = {
         justifyContent: 'space-between',
         listStyle: 'none',
         padding: 0
-    }
+    },
+    tags: {display: 'flex', marginTop: rhythm(-0.5)}
 };
 
 /**
@@ -32,13 +33,20 @@ const styles = {
 const BlogPostTemplate = (props) => {
     const post = props.data.markdownRemark;
     const siteTitle = props.data.site.siteMetadata.title;
-    const {previous, next} = props.pageContext;
+    const {previous, next, tags} = props.pageContext;
 
     return (
         <Layout location={props.location} title={siteTitle}>
             <SEO title={post.frontmatter.title} description={post.excerpt} />
-            <h1>{post.frontmatter.title}</h1>
-            <p style={styles.smallText}>{post.frontmatter.date}</p>
+            <div css={styles.header}>
+                <h1>{post.frontmatter.title}</h1>
+                <div css={styles.tags}>
+                    {tags.map(tag => (
+                        <Tag {...tag} />
+                    ))}
+                </div>
+                <p style={styles.smallText}>{post.frontmatter.date}</p>
+            </div>
             <div dangerouslySetInnerHTML={{__html: post.html}} />
 
             <hr style={styles.hr} />

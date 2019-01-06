@@ -1,10 +1,7 @@
 ---
+path: "/2019-01-01---react-ui-lib-part1"
 title: React UI-Kit - Setup, Create first component and Sample app (Part 1)
-tags:
-  - react
-  - typescript
-  - storybook
-  - styled-components
+tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
 date: "2019-01-01T22:00:00.000Z"
 ---

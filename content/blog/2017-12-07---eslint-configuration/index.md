@@ -1,7 +1,7 @@
 ---
+path: "/2017-12-07---eslint-configuration"
 title: ESLint Configurations - Your Project, Your Rules!
-tags:
-  - dev environment
+tags: ["dev environment", "eslint"]
 draft: false
 date: "2017-12-07T17:00:00.000Z"
 ---

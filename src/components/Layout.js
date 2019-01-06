@@ -44,9 +44,10 @@ const styles = {
  */
 const Layout = ({location, title, children}) => {
     const rootPath = `${__PATH_PREFIX__}/`;
+    const tagsPath = `${__PATH_PREFIX__}/tags`;
     let header;
 
-    if (location.pathname === rootPath) {
+    if (rootPath === location.pathname || location.pathname.startsWith(tagsPath)) {
         header = (
             <h1 style={styles.h1}>
                 <Link style={styles.link} to="/">

@@ -1,7 +1,7 @@
 ---
+path: "/2017-12-08---power-of-flow-runtime"
 title: With the Power of Flow Runtime!
-tags:
-  - dev environment
+tags: ["dev environment", "flowjs"]
 draft: false
 date: "2017-12-08T22:00:00.000Z"
 ---

@@ -1,10 +1,7 @@
 ---
+path: "/2019-01-02---react-ui-lib-part2"
 title: React UI-Kit - Adding a theme (Part 2)
-tags:
-  - react
-  - typescript
-  - storybook
-  - styled-components
+tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
 date: "2019-01-02T22:00:00.000Z"
 ---

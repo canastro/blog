@@ -1,7 +1,7 @@
 ---
+path: "/2017-12-09---speedtracker"
 title: SpeedTracker - Periodic Performance Tests
-tags:
-  - performance
+tags: ["performance"]
 draft: false
 date: "2017-12-09T22:00:00.000Z"
 ---
