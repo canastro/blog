@@ -58,7 +58,7 @@ const BlogPostTemplate = (props) => {
             <div dangerouslySetInnerHTML={{__html: post.html}} />
 
             <hr style={styles.hr} />
-            <Disqus frontmatter={post.frontmatter} />
+            <Disqus frontmatter={post.frontmatter} location={props.location} />
 
             <ul style={styles.navigation}>
                 <li>

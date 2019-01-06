@@ -21,14 +21,14 @@ class Disqus extends Component {
      * @returns {Node} Discus component
      */
     render() {
-        const {frontmatter: postFrontmatter} = this.props;
+        const {frontmatter: postFrontmatter, location} = this.props;
 
         return (
             <ReactDisqusComments
                 shortname="canastro-notes"
                 identifier={postFrontmatter.slug}
                 title={postFrontmatter.title}
-                url={window.location.href}
+                url={location.href}
                 category_id={postFrontmatter.category_id}
                 onNewComment={this.notifyAboutComment}
             />
@@ -37,7 +37,8 @@ class Disqus extends Component {
 }
 
 Disqus.propTypes = {
-    frontmatter: PropTypes.object.isRequired
+    frontmatter: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 export default Disqus;
