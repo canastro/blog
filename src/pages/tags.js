@@ -17,10 +17,11 @@ import SEO from '../components/Seo';
  */
 const TagsPage = ({data, location}) => {
     const {group} = data.allMarkdownRemark;
-    const {title} = data.site.siteMetadata;
+    const {title, keywords} = data.site.siteMetadata;
+
     return (
         <Layout location={location} title={title}>
-            <SEO title="All posts" keywords={['blog', 'gatsby', 'javascript', 'react']} />
+            <SEO title="All tags" keywords={keywords} />
             <Bio />
             <div>
                 <h4>Tags</h4>
@@ -62,6 +63,7 @@ export const pageQuery = graphql`
         site {
             siteMetadata {
                 title
+                keywords
             }
         }
         allMarkdownRemark(limit: 2000, filter: {frontmatter: {draft: {ne: true}}}) {

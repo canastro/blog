@@ -8,7 +8,8 @@ module.exports = {
             twitter: '//www.twitter.com/canastro',
             stackoverflow: '//stackoverflow.com/users/236205/canastro',
             linkedin: '//www.linkedin.com/in/ricardocanastro'
-        }
+        },
+        keywords: ['blog', 'gatsby', 'javascript', 'react', 'canastro', 'typescript']
     },
     pathPrefix: '/blog',
     plugins: [

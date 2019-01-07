@@ -41,10 +41,11 @@ const BlogPostTemplate = (props) => {
     const siteTitle = props.data.site.siteMetadata.title;
     const {previous, next, tags} = props.pageContext;
     const {title, subtitle} = post.frontmatter;
+    const keywords = tags.map(tag => tag.text);
 
     return (
         <Layout location={props.location} title={siteTitle}>
-            <SEO title={title} description={post.excerpt} />
+            <SEO title={title} description={post.excerpt} keywords={keywords} />
             <div css={styles.header}>
                 <h1>{title}</h1>
                 {subtitle && <strong css={styles.subtitle}>{subtitle}</strong>}

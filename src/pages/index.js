@@ -34,12 +34,12 @@ const styles = {
  * @return {React.ReactNode} node
  */
 const BlogIndex = ({data, location}) => {
-    const siteTitle = data.site.siteMetadata.title;
+    const {title: siteTitle, keywords} = data.site.siteMetadata;
     const posts = data.allMarkdownRemark.edges;
 
     return (
         <Layout location={location} title={siteTitle}>
-            <SEO title="All posts" keywords={['blog', 'gatsby', 'javascript', 'react']} />
+            <SEO title="All posts" keywords={keywords} />
             <Bio />
             {posts.map(({node}) => {
                 const {subtitle, path, title = node.fields.slug} = node.frontmatter;
@@ -84,9 +84,13 @@ export const pageQuery = graphql`
         site {
             siteMetadata {
                 title
+                keywords
             }
         }
-        allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}) {
+        allMarkdownRemark(
+            sort: {fields: [frontmatter___date], order: DESC}
+            filter: {frontmatter: {draft: {ne: true}}}
+        ) {
             edges {
                 node {
                     excerpt
