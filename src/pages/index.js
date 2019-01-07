@@ -42,8 +42,7 @@ const BlogIndex = ({data, location}) => {
             <SEO title="All posts" keywords={['blog', 'gatsby', 'javascript', 'react']} />
             <Bio />
             {posts.map(({node}) => {
-                const title = node.frontmatter.title || node.fields.slug;
-                const {subtitle} = node.frontmatter;
+                const {subtitle, path, title = node.fields.slug} = node.frontmatter;
                 const tags = node.frontmatter.tags.map(tag => ({
                     text: tag,
                     link: `/tags/${kebabCase(tag)}/`
@@ -54,7 +53,7 @@ const BlogIndex = ({data, location}) => {
                         <small>{node.frontmatter.date}</small>
                         <div css={styles.titleWrapper}>
                             <h3 css={styles.h3}>
-                                <Link css={styles.link} to={node.fields.slug}>
+                                <Link css={styles.link} to={path}>
                                     {title}
                                 </Link>
                             </h3>
@@ -99,6 +98,7 @@ export const pageQuery = graphql`
                         title
                         subtitle
                         tags
+                        path
                     }
                 }
             }

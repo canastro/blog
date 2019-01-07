@@ -230,6 +230,8 @@ const Comp = () => (
 
 By the end of this article your UI Kit should be ready to be themable and provide a default theme.
 
+Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)
+
 # Credits
 
 The way theme is configurable is heavily based on the way Material-UI does his themes with JSS.
