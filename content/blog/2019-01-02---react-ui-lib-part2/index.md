@@ -1,6 +1,6 @@
 ---
 path: "/2019-01-02---react-ui-lib-part2"
-title: Part 2 - Creating a react ui-ki
+title: Part 2 - Creating a react ui-kit
 subtitle: Adding a styled-components theme
 tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
