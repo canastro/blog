@@ -40,7 +40,7 @@ But if you have your theme composed as static objects the user will not have the
 
 **src/theme/palette.ts**:
 ```js
-export interface Palette = {
+export interface Palette {
   white: string;
   grey: string;
   black: string;
@@ -81,13 +81,13 @@ import createPalette, { Palette } from './create-palette';
 import createTypography, { Typography } from './create-typography';
 import spacing, { Spacing } from './spacing';
 
-export type Theme = {
+export interface Theme {
   palette: Palette,
   typography: Typography,
   spacing: Spacing
 };
 
-export type ThemeInput = {
+export interface ThemeInput {
   palette?: PaletteInput,
   typography?: TypographyInput
 }
