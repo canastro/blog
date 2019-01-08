@@ -49,7 +49,7 @@ export interface Palette = {
 };
 
 export type PaletteInput = {
-  [K in keyof Palette]+?: Palette[K];
+  readonly [K in keyof Palette]+?: Palette[K];
 }
 
 const createPalette = (palette: PaletteInput): Palette => {
@@ -61,15 +61,13 @@ const createPalette = (palette: PaletteInput): Palette => {
     secondary = '#dfdded'
   } = palette;
 
-  const output = {
+  return {
     white,
     grey,
     black,
     primary,
     secondary
   };
-
-  return output;
 };
 
 export default createPalette;
@@ -235,3 +233,5 @@ Check the source code on of **bob-ross-kit** on [github](https://github.com/cana
 # Credits
 
 The way theme is configurable is heavily based on the way Material-UI does his themes with JSS.
+
+*If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
