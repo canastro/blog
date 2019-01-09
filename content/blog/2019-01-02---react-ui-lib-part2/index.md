@@ -1,6 +1,6 @@
 ---
 path: "/2019-01-02---react-ui-lib-part2"
-title: Part 2 - Creating a react ui-kit
+title: Creating a react ui-kit (Part 2)
 subtitle: Adding a styled-components theme
 tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
@@ -232,6 +232,6 @@ Check the source code on of **bob-ross-kit** on [github](https://github.com/cana
 
 # Credits
 
-The way theme is configurable is heavily based on the way Material-UI does his themes with JSS.
+The way theme is configurable is heavily based on the way Material-UI does its themes with JSS.
 
 *If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*

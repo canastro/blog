@@ -2,9 +2,9 @@
 path: "/typescript-extend-modify-type"
 title: Typescript - Extending and modifying existing types with Mapped Types
 subtitle: A Typescript beginner's hard-learned lessons
-tags: ["react", "typescript", "ts-beginners-series"]
+tags: ["react", "typescript"]
 draft: false
-date: "2019-01-07T22:00:00.000Z"
+date: "2019-01-09T22:45:00.000Z"
 ---
 
 I'm no Typescript expert (well, I'm not an expert at anything really :sweat_smile:).
@@ -34,9 +34,9 @@ export const createPalette = (overrides?: PaletteInput): Palette =>
   Object.assign({}, defaultPalette, overrides);
 ```
 
-It would make no sense to make it mandatory for the consumers of your lib to provide a complete theme object, they would only need to provide the values that they want to override. Therefore, you cannot reuse the **Palette** type. Your **PaletteInput** will have to have all props marked as optional and it should be readonly. 
+It wouldn't make sense to be mandatory to provide a complete theme object when creating a new palette, only the values to be overridden should be passed. Therefore, you cannot reuse the **Palette** type. The **PaletteInput** needs to have all props marked as optional and readonly. 
 
-Ideally you avoid to duplicate code, so you wouldn't want to have two types looking exactly the same expect the readyonly and optional modifiers. If you use [Mapped Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html) you can iterate all the keys in a given type add some modifier to them creating a new type:
+Ideally you should avoid to duplicate code (or types in this case), so you wouldn't want to have two types looking exactly the same expect the readyonly and optional modifiers. If you use [Mapped Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html) you can iterate all the keys in a given type add some modifier to them creating a new type:
 
 ```js
 export type PaletteInput = {
@@ -47,10 +47,6 @@ export type PaletteInput = {
 Typescript, already implements some types which you can use to achieve the same result:
 
 ```js
-type Nullable<T> = { 
-  [P in keyof T]: T[P] | null 
-}
-
 type Readonly<T> = {
   readonly [P in keyof T]: T[P];
 }
@@ -66,15 +62,15 @@ And you can use them like so to achieve the same result:
 export type PaletteInput = ReadOnly<Partial<Palette>>;
 ```
 
-Its up to you to decide if you prefer to use the ReadOnly and Partial built-ins or to build your own Input type using **keyof** and adding the readonly and optional modifiers.
+Its up to you to decide if you prefer to use **ReadOnly** and **Partial** built-ins or to build your own Input type using **keyof** and adding the readonly and optional modifiers.
 
-You might have noticed that in my type definitions I added a plus sign before the **readonly** and **optional**, thats just to make it clear that we want to add those modifiers to the given key. Its also possible to use a minus sign in order to remove a modifier from the base type.
+You might have noticed that in my type definitions I added a plus sign before the **readonly** and **?**, thats just to make it clear that we want to add those modifiers to the given key. Its also possible to use a minus sign in order to remove a modifier from the base type.
 
 Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgApwDYTJZBvAKGWQHcALYSALmQGcwpQBzAbiOSaggE8b7GQrdgCMMiANZ8GzNsQAOjALZwovOtMGy6EBAHsQAExVr+MggF82BAPQAqW0VvIw3OSnRYcEAJIg5AVzBkAF40FTBgTAAeACUIOAMAeRAMbiiPbEgAPizZW2sCAhc3MM9IXwCg0MJiAGouBP1U5ABtAGlkUGRxHl0YUsyIAF1agH4aDK92obZzQr0QemQDCHh-DDBJ3Gr2ckoIGgByAGIYM8OAGnZOHiPTgHYYAE54S5ExBElkE4AmP7f5EpjHcAGwGADMAAYIPcAdoFkZVHcDDADCsDIcLFYFksEA1IFsUKEABS6ABu0EYK1o4wGXgqgQAlBNMIMQllkOxiIlhAArHRgAB0cFotGATBAxLw5guy1WcHWm1ZXll5MpwGpjK0BBxQTkyu2yDx8QJBogxK1Ov0uP89F0imAAC8IAZCSEjfiIISpcgFMBlEjvlwMchzJarYtdFhBRhdEwffqyhBZQhbWB7U6XW6wywgA)
 
 # Modify and extend a type
 
-What if we want to provide some inputs that are not exactly overrides, but are variables that will be used to compute the new theme, something like:
+What if we wanted to provide some input props that are not exactly overrides, but are variables that will be used to compute the new theme. In the next example `fontSize` and `htmlFontSize` are passed in just to be able to calculate the `fontSizeH1` in *rem* units:
 
 ```js
 export interface Typography {
@@ -85,8 +81,13 @@ export interface Typography {
 
 const createTypography = (typography?: TypographInput): Typography => {
     const {
-        fontSize = 14,
+        // Font-size on the html element.
+        // 16px is the default font-size used by browsers.
         htmlFontSize = 16,
+
+        // Default fontSize
+        fontSize = 14,
+
         fontWeightNormal = 400,
         fontWeightBold = 700
     } = typography || {};
@@ -119,8 +120,8 @@ Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#c
 
 # Final remarks
 
-As I was starting with Typescript these were some of the scenarios that I might have placed a **any** type and marked as "to be reviewed 'later'" Yeah, right!
+Typescript is a powerful tool, and it should be used to its full potential. I have used flow and react prop-types, and I know I have resorted a lot of times to the use of `any` or generic `.object` but if you're going to cheat on types, then why bother to set them up at all?
 
-I hope to have shed some light on the powerful tool that Mapped Types are.
+I hope to have shed some light on the powerful applications that  Mapped Types provide and that this might be a solution to a situation you face in the future.
 
 *If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
