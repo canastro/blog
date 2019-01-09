@@ -3,20 +3,18 @@ path: "/typescript-extend-modify-type"
 title: Typescript - Extending and modifying existing types with Mapped Types
 subtitle: A Typescript beginner's hard-learned lessons
 tags: ["react", "typescript", "ts-beginners-series"]
-draft: true
+draft: false
 date: "2019-01-07T22:00:00.000Z"
 ---
 
-I'm no Typescript expert (well, I'm not a expert at anything really :sweat_smile:).
+I'm no Typescript expert (well, I'm not an expert at anything really :sweat_smile:).
 I'm a TS newbie that wants to catalog his most interesting and useful findings. 
 
 # Modify a type
-Having the following scenario: you're creating a lib that hopefuly alot of other devs will use to build their apps. You might have a static theme configuration object, but sooner or later your users will ask you to provide a way to override some parts of that theme.
-
-Picking up on the react ui-kit we created on the previous post we have:
+Having the following scenario: you're creating a lib that hopefuly alot of other devs will use to build their apps. Your lib has a static theme configuration object, but sooner or later your users will ask you to provide a way to override some parts of that theme, such as:
 
 ```js
-export type Palette = {
+export interface Palette {
   white: string;
   grey: string;
   black: string;
@@ -32,13 +30,13 @@ const defaultPalette = {
   secondary: '#dfdded'
 };
 
-export const createTheme = (overrides): Palette => 
+export const createPalette = (overrides?: PaletteInput): Palette => 
   Object.assign({}, defaultPalette, overrides);
 ```
 
-It would make no sense to make it mandatory for the consumers of your lib to have to provide a complete theme object, therefore you cannot reuse the **Palette** type. Your **PaletteInput** will have to have all props marked as optional and it should be readonly. 
+It would make no sense to make it mandatory for the consumers of your lib to provide a complete theme object, they would only need to provide the values that they want to override. Therefore, you cannot reuse the **Palette** type. Your **PaletteInput** will have to have all props marked as optional and it should be readonly. 
 
-We want to create the PaletteInput type without having to duplicate the Palette input type, because that would be harder to maintain. How can we achieve that? Well, the answer is [Mapped Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html). With mapped types you can iterate all the keys in a given type add some modifier to them and create a new type:
+Ideally you avoid to duplicate code, so you wouldn't want to have two types looking exactly the same expect the readyonly and optional modifiers. If you use [Mapped Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html) you can iterate all the keys in a given type add some modifier to them creating a new type:
 
 ```js
 export type PaletteInput = {
@@ -46,7 +44,7 @@ export type PaletteInput = {
 }
 ```
 
-However typescript, already implements some types which you can use to achieve the same result:
+Typescript, already implements some types which you can use to achieve the same result:
 
 ```js
 type Nullable<T> = { 
@@ -62,33 +60,36 @@ type Partial<T> = {
 }
 ```
 
-And using you can use it so:
+And you can use them like so to achieve the same result:
 
 ```js
 export type PaletteInput = ReadOnly<Partial<Palette>>;
 ```
 
-Its up to you to decide if you prefer to use **keyof** to build your own Input type or manually define your **Input Type** by adding the readonly and optional modifiers.
+Its up to you to decide if you prefer to use the ReadOnly and Partial built-ins or to build your own Input type using **keyof** and adding the readonly and optional modifiers.
 
 You might have noticed that in my type definitions I added a plus sign before the **readonly** and **optional**, thats just to make it clear that we want to add those modifiers to the given key. Its also possible to use a minus sign in order to remove a modifier from the base type.
+
+Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgApwDYTJZBvAKGWQHcALYSALmQGcwpQBzAbiOSaggE8b7GQrdgCMMiANZ8GzNsQAOjALZwovOtMGy6EBAHsQAExVr+MggF82BAPQAqW0VvIw3OSnRYcEAJIg5AVzBkAF40FTBgTAAeACUIOAMAeRAMbiiPbEgAPizZW2sCAhc3MM9IXwCg0MJiAGouBP1U5ABtAGlkUGRxHl0YUsyIAF1agH4aDK92obZzQr0QemQDCHh-DDBJ3Gr2ckoIGgByAGIYM8OAGnZOHiPTgHYYAE54S5ExBElkE4AmP7f5EpjHcAGwGADMAAYIPcAdoFkZVHcDDADCsDIcLFYFksEA1IFsUKEABS6ABu0EYK1o4wGXgqgQAlBNMIMQllkOxiIlhAArHRgAB0cFotGATBAxLw5guy1WcHWm1ZXll5MpwGpjK0BBxQTkyu2yDx8QJBogxK1Ov0uP89F0imAAC8IAZCSEjfiIISpcgFMBlEjvlwMchzJarYtdFhBRhdEwffqyhBZQhbWB7U6XW6wywgA)
 
 # Modify and extend a type
 
 What if we want to provide some inputs that are not exactly overrides, but are variables that will be used to compute the new theme, something like:
 
 ```js
-export type Typography {
+export interface Typography {
     fontSizeH1: string;
     fontWeightNormal: number;
+    fontWeightBold: number;
 }
 
-const createTypography = (typography: ??): Typography => {
+const createTypography = (typography?: TypographInput): Typography => {
     const {
         fontSize = 14,
         htmlFontSize = 16,
         fontWeightNormal = 400,
         fontWeightBold = 700
-    } = typography;
+    } = typography || {};
 
     const coef = fontSize / 14;
     const pxToRem = (size: number) => `${(size / htmlFontSize) * coef}rem`;
@@ -106,11 +107,15 @@ export default createTypography;
 In the previous snippet, the input type includes fontSize and htmlFontSize just to create a helper function and are not part of the output type, yet the other props are part of the output. In order to create the new Input type we can use the [intersection types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types):
 
 ```js
-export type TypographyInput = Partial<Typography> & {
+export type TypographyInput = {
+    +readonly [K in keyof Typography]+?: Typography[K];
+} & {
     fontSize?: number;
     htmlFontSize?: number;
 }
 ```
+
+Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgCoE8AOB7A5lOTAC3WQG8AoZa5GbcAZWAC8IAJARgC5kBnMKKFwBuKjTrgA6hGC4iYAHLYoAWzgAbHiACuKgEbRRNWvTDTZ8gELZ1AEy26DUUQF8KFMFhQYc+QiQBJEExtMGQAXnIxagBqKAg4W3p1UgBtAGlkUGQAawh0bBg0LDwCYnQAXRiAfh4fUv90DIrXZAAyKOMJMCZWWuQdfUNo5HkVdQAxU16IfsGnV3cAegAqFY8vYt8ywODQiOQABTgoMGANAB4AJQSkkBSL+r9ygD4X9s7xaZZZhyHnEZjSbfPp-BYUNzIFZLdwIej8ZAIeJwSBPHakSIACk820a-TRjSCITAAEo6iVniQIu9KMY4SAEbTjF9GD8DhwACwAGhGxiBU1ZrHZADYecyWWYZHJFMo1OoDhyAAyKsXikxSKVWGy2A4AdmVIxcBxxDXKyAAPubyC5RCN6Qi4RAipFujNkEtkJyjDR7WFMAAPVDYG4qA6Y3g-MHQEnU5AAAwAJGRw2yPfyQRAYytEdgnS54io47bjPEwNooCBPuLXT9ODwA0GQ5iAJzCkmq6umczSpSqDQd5ndbtauyG1y2ii+5AmykYxHI1EU9GYkmiKcIbT8bAqH62AlmyJIhKL3HlTFkdU9SPIABMiuQLlXsPhNggADp1Hhz9Ol40uYjNzAbdd33KlH2EIA)
 
 # Final remarks
 

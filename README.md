@@ -11,6 +11,7 @@ My personal blog.
 * Typescript tips from a newbie
    * https://twitter.com/thekitze/status/1082176413048934400
 * Canvas image manipulation (talk about my lens experiences)
+* Create a small fiber for generic traversal
 
 # Useful links:
 * https://github.com/matchilling/gatsby-remark-emojis/blob/master/emoji.md
