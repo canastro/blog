@@ -9,7 +9,7 @@ date: "2019-01-09T22:45:00.000Z"
 
 I've been hearing people talk about Typescript for a long time now, but I never had the opportunity to use it professionally. Now with all the attention around it and the mostly good feedback from those who use it, I'm finally going to have the chance to use it on a daily basis.
 
-During this journey I'll document those that I find my most interesting and useful findings. Inspired by [@swyx's tweet](https://twitter.com/swyx/status/1009174159690264579) a while back, I'll share those findings in this blog, this will "force" me to be more exhaust on my research and possibily have errors being pointed out by others that will help me grow as a developer.
+During this journey I'll document those that I find my most interesting and useful findings. Inspired by [@swyx's tweet](https://twitter.com/swyx/status/1009174159690264579) a while back, I'll share those findings in this blog, this will "force" me to be more exhaust on my research and possibily have errors being pointed out by others that will help me grow as a developer. [#LearnInPublic](https://twitter.com/hashtag/LearnInPublic?src=hash)
 
 # Modify a type
 Having the following scenario: you're creating a lib that hopefuly alot of other devs will use to build their apps. Your lib has a static theme configuration object, but sooner or later your users will ask you to provide a way to override some parts of that theme, such as:
