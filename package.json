@@ -55,7 +55,8 @@
     "eslint-plugin-react": "^7.5.1",
     "gh-pages": "^1.1.0",
     "lodash-webpack-plugin": "^0.11.4",
-    "prettier": "^1.8.2"
+    "prettier": "^1.8.2",
+    "write-good": "^0.13.1"
   },
   "homepage": "https://github.com/canastro/blog#readme",
   "keywords": [
@@ -75,6 +76,7 @@
     "develop": "gatsby develop",
     "build": "gatsby build",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
+    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js",
+    "write-good": "write-good ./content/blog/**/*.md"
   }
 }

@@ -1,5 +1,5 @@
 ---
-path: "/typescript-extend-modify-type"
+path: "/ts-mapped-types"
 title: Typescript - Extending and modifying existing types with Mapped Types
 subtitle: A Typescript beginner's hard-learned lessons
 tags: ["react", "typescript"]
@@ -7,8 +7,9 @@ draft: false
 date: "2019-01-09T22:45:00.000Z"
 ---
 
-I'm no Typescript expert (well, I'm not an expert at anything really :sweat_smile:).
-I'm a TS newbie that wants to catalog his most interesting and useful findings. 
+I've been hearing people talk about Typescript for a long time now, but I never had the opportunity to use it professionally. Now with all the attention around it and the mostly good feedback from those who use it, I'm finally going to have the chance to use it on a daily basis.
+
+During this journey I'll document those that I find my most interesting and useful findings. Inspired by [@swyx's tweet](https://twitter.com/swyx/status/1009174159690264579) a while back, I'll share those findings in this blog, this will "force" me to be more exhaust on my research and possibily have errors being pointed out by others that will help me grow as a developer.
 
 # Modify a type
 Having the following scenario: you're creating a lib that hopefuly alot of other devs will use to build their apps. Your lib has a static theme configuration object, but sooner or later your users will ask you to provide a way to override some parts of that theme, such as:
@@ -64,13 +65,13 @@ export type PaletteInput = ReadOnly<Partial<Palette>>;
 
 Its up to you to decide if you prefer to use **ReadOnly** and **Partial** built-ins or to build your own Input type using **keyof** and adding the readonly and optional modifiers.
 
-You might have noticed that in my type definitions I added a plus sign before the **readonly** and **?**, thats just to make it clear that we want to add those modifiers to the given key. Its also possible to use a minus sign in order to remove a modifier from the base type.
+You might have noticed that in my type definitions I added a plus sign before the **readonly** and **?**, thats just to make it clear that we want to add those modifiers to the given key. Its also possible to use a minus sign to remove a modifier from the base type.
 
 Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgApwDYTJZBvAKGWQHcALYSALmQGcwpQBzAbiOSaggE8b7GQrdgCMMiANZ8GzNsQAOjALZwovOtMGy6EBAHsQAExVr+MggF82BAPQAqW0VvIw3OSnRYcEAJIg5AVzBkAF40FTBgTAAeACUIOAMAeRAMbiiPbEgAPizZW2sCAhc3MM9IXwCg0MJiAGouBP1U5ABtAGlkUGRxHl0YUsyIAF1agH4aDK92obZzQr0QemQDCHh-DDBJ3Gr2ckoIGgByAGIYM8OAGnZOHiPTgHYYAE54S5ExBElkE4AmP7f5EpjHcAGwGADMAAYIPcAdoFkZVHcDDADCsDIcLFYFksEA1IFsUKEABS6ABu0EYK1o4wGXgqgQAlBNMIMQllkOxiIlhAArHRgAB0cFotGATBAxLw5guy1WcHWm1ZXll5MpwGpjK0BBxQTkyu2yDx8QJBogxK1Ov0uP89F0imAAC8IAZCSEjfiIISpcgFMBlEjvlwMchzJarYtdFhBRhdEwffqyhBZQhbWB7U6XW6wywgA)
 
 # Modify and extend a type
 
-What if we wanted to provide some input props that are not exactly overrides, but are variables that will be used to compute the new theme. In the next example `fontSize` and `htmlFontSize` are passed in just to be able to calculate the `fontSizeH1` in *rem* units:
+What if we wanted to provide some input props that are not overrides, but are variables that will be used to compute the new theme. In the next example, the `fontSize` and `htmlFontSize` arguments were only used to calculate the `fontSizeH1` in *rem* units:
 
 ```js
 export interface Typography {
@@ -105,7 +106,7 @@ const createTypography = (typography?: TypographInput): Typography => {
 export default createTypography;
 ```
 
-In the previous snippet, the input type includes fontSize and htmlFontSize just to create a helper function and are not part of the output type, yet the other props are part of the output. In order to create the new Input type we can use the [intersection types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types):
+In the previous snippet, the input type includes fontSize and htmlFontSize only to create a helper function and are not part of the output type, yet the other props are part of the output. To create the new Input type we can use the [intersection types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types):
 
 ```js
 export type TypographyInput = {
