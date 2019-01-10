@@ -2,7 +2,7 @@ module.exports = {
     siteMetadata: {
         title: 'Canastro\'s notes',
         author: 'Ricardo Canastro',
-        description: 'A blog!',
+        description: 'Software development (mainly javascript) blog written by Ricardo Canastro a Software Developer based in Porto, Portugal and currently working for dashdash.',
         siteUrl: 'https://canastro.github.io/blog/',
         social: {
             twitter: '//www.twitter.com/canastro',
@@ -13,6 +13,7 @@ module.exports = {
     },
     pathPrefix: '/blog',
     plugins: [
+        'gatsby-plugin-robots-txt',
         {
             resolve: 'gatsby-plugin-google-analytics',
             options: {
@@ -83,7 +84,7 @@ module.exports = {
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
-                name: 'Canastro\'s notes',
+                name: 'Canastro notes',
                 short_name: 'Canastro',
                 start_url: '/blog',
                 background_color: 'white',
