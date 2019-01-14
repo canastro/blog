@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'gatsby';
 import 'prismjs/themes/prism-okaidia.css';
+import './prism.css';
 
 import {rhythm, scale} from '../utils/typography';
 

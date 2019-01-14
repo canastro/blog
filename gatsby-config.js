@@ -2,7 +2,8 @@ module.exports = {
     siteMetadata: {
         title: 'Canastro\'s notes',
         author: 'Ricardo Canastro',
-        description: 'Software development (mainly javascript) blog written by Ricardo Canastro a Software Developer based in Porto, Portugal and currently working for dashdash.',
+        description:
+            'Software development (mainly javascript) blog written by Ricardo Canastro a Software Developer based in Porto, Portugal and currently working for dashdash.',
         siteUrl: 'https://canastro.github.io/blog/',
         social: {
             twitter: '//www.twitter.com/canastro',
@@ -39,6 +40,7 @@ module.exports = {
             resolve: 'gatsby-transformer-remark',
             options: {
                 plugins: [
+                    'gatsby-remark-copy-linked-files',
                     'gatsby-plugin-glamor',
                     {
                         resolve: 'gatsby-remark-images',
