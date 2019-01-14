@@ -1,5 +1,5 @@
 ---
-path: "/heavy-browser-computation"
+path: "/draft___heavy-browser-computation"
 title: A spike about heavy browser computation
 subtitle: Schedule work with requestIdleCallback
 tags: ["javascript", "dashdash", "spike"]
