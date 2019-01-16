@@ -9,14 +9,16 @@ date: "2019-01-11T22:45:00.000Z"
 
 At [dashdash](https://www.dashdash.com) we build spreadsheets with super-powers, we aim to create tools that make computation accessible to everyone.
 
-Our spreadsheet supports the standard excel formulas, external API integration formulas and some dashdash formulas that allow you to integrate any API through GET and POST requests. Given this flexibility most of our computation has to be done in the backend, but not all of it. For the formulas that do not require HTTP requests to be fired, we could "easily" do them in the frontend.
+Our spreadsheet supports most of the standard excel formulas, external API integrations and some dashdash specific functions that allow you to integrate any API through GET and POST requests (learn more about dashdash in our [landing page](http://dashdash.com)). Given this flexibility most of our computation has to be done in the backend, but not all of it. For the formulas that do not require HTTP requests to be fired, we could "easily" do them in the frontend.
 
-Currently we do all the computation on the backend, that means that even the "trival" operations such as arithemetical operations need to go the backend, and these are operations should feel immediate to the user. Nobody got time to wait ~80ms for a **sum** result :smile:.
+Currently we do all the computation on the backend, that means that even the "trivial" operations such as arithemetical operations need to go the backend, and these are operations should feel immediate to the user. Nobody got time to wait ~80ms for a **sum** result :smile:.
 
 # Optimistic Updates
-This quarter we want to be able to have double engine computation, the frontend should optimistically do computation and still requests to our backend engine to do computation and persist the computed values. The frontend computation would have some limitations as it would only do computation on cells that do not require or dependen on external HTTP requests.
+This quarter we want to be able to have double engine computation, the frontend should optimistically do computation and still requests to our backend engine to do computation and persist the computed values. The frontend computation would have some limitations as it would only do computation on cells that do not require HTTP requests to be fired.
 
-While most users have simple spreadsheets, we only limit the graph of dependencies of a cell to 100 000. A power user can easily create a spreadsheet with a insane cell dependencies graph. So, given our large constraints, editing a cell might have a ripple effect that triggers operations in thousands of other cells either directly or by association with other cells. If we execute those operations by iterating each affected cell / formula we'll completely freeze the browser and provide a terrible user experience.
+While most users have simple spreadsheets, we only limit the graph of dependencies of a cell to 100 000. A power user can easily create a spreadsheet with a insane cell dependencies graph. 
+
+Given our large constraints, editing a cell might have a ripple effect that triggers operations in thousands of other cells either directly or by association with other cells. If we execute those operations by iterating each affected cell / formula we'll completely freeze the browser and provide a terrible user experience.
 
 # Requirements
 Our solution for the frontend computation should support the following requirements:
@@ -55,10 +57,10 @@ Given a object with each cell indexed by id, we're going to start computation by
     value: null
   },
   ...
-  A2000000: {
-    id: 'A2000000',
+  A1000000: {
+    id: 'A1000000',
     child: null,
-    formula: '=A1999999+10',
+    formula: '=A99999+10',
     value: null
   }
 }
@@ -78,14 +80,14 @@ In this blog post I'll explore one in particular, the usage of cpu idle periods 
 
 > The [window.requestIdleCallback()](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) method queues a function to be called during a browser's idle periods. This enables developers to perform background and low priority work on the main event loop, without impacting latency-critical events such as animation and input response. Functions are generally called in first-in-first-out order; however, callbacks which have a timeout specified may be called out-of-order if necessary in order to run them before the timeout elapses.
 
-By calling requestIdleCallback we schedule a callback for the next idle period. In that callback we can check how long we got left before the idle period ends by calling `deadline.timeRemaining()`. The maximium amount of idle time is 50ms, but most of the times we'll get less time than that depending on how busy the CPU is. Using the timeRemaining and a constant max time for each calculation we can check if we have free time to do one more calc or reschedule to the next idle period. We'll schedule a new callback until there are no more tasks to execute. By processing our cells this way, we make sure to not interrupt latency-critical events and provide a smooth user experience. 
+By calling requestIdleCallback we schedule a callback for the next CPU idle period. In that callback we can check how long we got left before the idle period ends by calling `deadline.timeRemaining()`. The maximium amount of idle time is 50ms, but most of the times we'll get less time than that depending on how busy the CPU is. Using the timeRemaining and a constant max time for each calculation we can check if we have free time to do one more calc or reschedule to the next idle period. We'll schedule a new callback until there are no more tasks to execute. By processing our cells this way, we make sure to not interrupt latency-critical events and provide a smooth user experience. 
 
-If we're processing 100 calcs, the time to execution with idle does not vary much from the regular blocking operation, but if we're processing 2 000 000, the idle approach will take longer, but smoother. Its a tradeoff, that personally, I think its worth it. 
+If we're processing 100 calcs, the time to execution with idle does not vary much from the regular blocking operation, but if we're processing 100 000, the idle approach will take longer, but smoother. Its a tradeoff, that personally, I think its worth it. 
 
 There is though, a caveat, the [browser support](https://caniuse.com/#search=requestIdle) is not yet ideal... Its not yet supported by neither IE Edge or safari... Always those two, right? :disappointed: There are ways to shim it, such as this simple [gist](https://gist.github.com/paullewis/55efe5d6f05434a96c36) and [react's approach](https://github.com/facebook/react/blob/master/packages/scheduler/src/Scheduler.js#L415), which is a more complex and robust.
 
 # Lets code!
-This is our dummy computation function (It's pretty much hardcoded and does not reflect the real world code). This function extracts the id of the cell in the formula, adds 10 to the value of the referred cell, updates the current cell value and returns the next cell: 
+First we need to create a dummy function that will represent our cell computation, lets call it `performUnitOfWork` (It's pretty much hardcoded and does not reflect the real world code): 
 
 ```js
 function performUnitOfWork(nextUnitOfWork) {
@@ -112,7 +114,9 @@ function performUnitOfWork(nextUnitOfWork) {
 }
 ```
 
-How we would we do this with a regular `while` loop:
+This function extracts the id of the cell in the formula, adds 10 to the value of the referred cell, updates the current cell value and returns the next cell.
+
+The following snippet shows how we would process our test data with a regular `while` loop:
 
 ```js
 export default task => {
@@ -123,7 +127,8 @@ export default task => {
 };
 ```
 
-With a requestIdleCallback scheduler:
+To process the same data with a `requestIdleCallback` scheduler, the code would be a bit more complex:
+
 ```js
 /**
  * How long we think that we need to have to be able 
@@ -176,11 +181,15 @@ export default function scheduleWork(task) {
 }
 ```
 
-A task represents a cell that has been changed and we need to check if this change will effect other cells and recompute their values.
+To start processing our test data we call scheduleWork with a task. A task represents a cell that has been changed and requires our computation module to perform calculations.
 
-Given a task we check if there is already a work in progress that was triggered by this cell, if so that should be interrupted and added back to the end of the workQueue. After updating the queue, a performWork is scheduled with the **requestIdleCallback**.
+First we need to check if there is a work in progress that was triggered by the same cell that we were passed, if so that should be interrupted and added back to the end of the workQueue. After updating the queue, a performWork callback is scheduled with the **requestIdleCallback**.
 
-When we get a slot of idle time, the function **performWork** is called, this function calls the **workLoop** which is responsible to get the next task in the workQueue and then do a while loop to **performUnitOfWork** while we still have idle time left. The **performUnitOfWork** does the formula computation and returns the child of the current cell, that child is assinged to the **nextUnitOfWork**. Once theres no more time to process more cells, the performWork function will schedule a **requestIdleCallback** to pickup the work on the next cpu idle time.
+When we get a slot of idle cpu time, the function **performWork** is called. This function calls the **workLoop** which is responsible to get the next task in the workQueue and then do a while loop calling **performUnitOfWork** while it still has time left in the idle period. 
+
+The **performUnitOfWork** computes the cell value and returns the next cell to be computed which gets assigned to the **nextUnitOfWork**. 
+
+Once there is no more time to process cells, the performWork function will schedule a **requestIdleCallback** to pickup the work on the next cpu idle time.
 
 This loop will keep going on until there are no more nextUnitOfWork or items in the workQueue.
 
@@ -200,7 +209,6 @@ The blocking iteration approach is much faster to execute, but, as visible in **
 
 # Conclusion
 In this isolated test it seems that the approach with **requestIdleCallback** checks our requirements.
-
 
 But, there are a few topics that will require further exploration:
 * How well does this work integrated with react's scheduler?
