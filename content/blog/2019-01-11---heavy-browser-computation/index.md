@@ -13,8 +13,8 @@ Our spreadsheet supports most of the standard excel formulas, external API integ
 
 Currently we do all the computation on the backend, that means that even the "trivial" operations such as arithemetical operations need to go the backend, and these are operations should feel immediate to the user. Nobody got time to wait ~80ms for a **sum** result :smile:.
 
-# Optimistic Updates
-This quarter we want to be able to have double engine computation, the frontend should optimistically do computation and still requests to our backend engine to do computation and persist the computed values. The frontend computation would have some limitations as it would only do computation on cells that do not require HTTP requests to be fired.
+# Frontend Computation
+One of our cells has the mission to ensure that the platform is scalable. Among all of the ideas to achieve the end goal, there is the "Frontend Computation". We would rely on the frontend to perform the calculations that do not require HTTP requests or any other form to integration with external data.
 
 While most users have simple spreadsheets, we only limit the graph of dependencies of a cell to 100 000. A power user can easily create a spreadsheet with a insane cell dependencies graph. 
 
