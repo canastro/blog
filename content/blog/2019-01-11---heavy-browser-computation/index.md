@@ -90,11 +90,13 @@ There is though, a caveat, the [browser support](https://caniuse.com/#search=req
 First we need to create a dummy function that will represent our cell computation, lets call it `performUnitOfWork` (It's pretty much hardcoded and does not reflect the real world code): 
 
 ```js
+const isFormula = value => 
+  typeof value === 'string' && value.startsWith('=');
+
 function performUnitOfWork(nextUnitOfWork) {
     const { formula } = nextUnitOfWork.task;
 
-    const isFormula = (formula + '').startsWith('=');
-    if (isFormula) {
+    if (isFormula(formula)) {
         const parentId = formula.match(/A\d*/)[0]; // hardcoded stuff
         const previousValue = spreadsheet.data[parentId].value;
         const newValue = previousValue + 10;
