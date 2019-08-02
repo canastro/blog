@@ -1,22 +1,20 @@
 ---
-path: "/draft___heavy-browser-computation"
-title: A spike about heavy browser computation
-subtitle: Schedule work with requestIdleCallback
-tags: ["javascript", "dashdash", "spike"]
+path: "/offload-heavy-browser-computation"
+title: Offload heavy computation I
+subtitle: Use CPU's idle periods
+tags: ["javascript", "heavy computation"]
 draft: true
 date: "2019-01-11T22:45:00.000Z"
 ---
 
 At [dashdash](https://www.dashdash.com) we build spreadsheets with super-powers, we aim to create tools that make computation accessible to everyone.
 
-Our spreadsheet supports most of the standard excel formulas, external API integrations and some dashdash specific functions that allow you to integrate any API through GET and POST requests (learn more about dashdash in our [landing page](http://dashdash.com)). Given this flexibility most of our computation has to be done in the backend, but not all of it. For the formulas that do not require HTTP requests to be fired, we could "easily" do them in the frontend.
+Our spreadsheet supports most of the standard excel formulas, external API integrations and some dashdash specific functions that allow you to integrate any API through GET and POST requests (learn more about dashdash in our [landing page](http://dashdash.com)). Given this flexibility most of our computation has to be done in the backend, but not all of it. For the formulas that do not require HTTP requests to be fired, we could do them in the frontend.
 
-Currently we do all the computation on the backend, that means that even the "trivial" operations such as arithemetical operations need to go the backend, and these are operations should feel immediate to the user. Nobody got time to wait ~80ms for a **sum** result :smile:.
+Currently we do all the computation on the backend, that means that even the "trivial" operations such as arithemetical operations need call our API. These are operations should feel immediate to the user. Nobody got time to wait ~80ms for a **sum** result :smile:.
 
 # Frontend Computation
-One of our cells has the mission to ensure that the platform is scalable. Among all of the ideas to achieve the end goal, there is the "Frontend Computation". We would rely on the frontend to perform the calculations that do not require HTTP requests or any other form to integration with external data.
-
-While most users have simple spreadsheets, we only limit the graph of dependencies of a cell to 100 000. A power user can easily create a spreadsheet with a insane cell dependencies graph. 
+While most users have simple spreadsheets, we only limit the graph of dependencies of a single cell to 100 000. A power user can easily create a spreadsheet with a insane cell dependencies graph. 
 
 Given our large constraints, editing a cell might have a ripple effect that triggers operations in thousands of other cells either directly or by association with other cells. If we execute those operations by iterating each affected cell / formula we'll completely freeze the browser and provide a terrible user experience.
 

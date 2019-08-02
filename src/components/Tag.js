@@ -1,24 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {css} from '@emotion/core';
 import {Link} from 'gatsby';
 
+import {palette} from '../utils/theme';
+
 const styles = {
-    root: {
-        display: 'flex',
-        alignItems: 'center',
-        border: '1px solid #007acc',
-        borderRadius: 5,
-        padding: '0 5px',
-        marginRight: 5,
-        '&:hover': {
-            backgroundColor: '#e6f5ff'
+    root: css`
+        display: flex;
+        align-items: center;
+        border: 1px solid ${palette.orange};
+        border-radius: 5px;
+        padding: 0 5px;
+        margin-right: 5px;
+        :hover {
+            background-color: #4c5156;
         }
-    },
-    a: {
-        boxShadow: 'none',
-        fontSize: '0.75rem'
-    }
+    `,
+    a: css`
+        box-shadow: none;
+        font-size: 0.75rem;
+    `
 };
 
 /**

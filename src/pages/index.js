@@ -2,31 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, graphql} from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
+import {css} from '@emotion/core';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/Seo';
 import Tag from '../components/Tag';
+import {palette} from '../utils/theme';
 import {rhythm} from '../utils/typography';
 
 const styles = {
-    post: {
-        marginBottom: rhythm(2)
-    },
-    h3: {
-        marginTop: rhythm(1 / 4),
-        marginBottom: rhythm(1 / 4)
-    },
-    link: {boxShadow: 'none'},
-    p: {marginBottom: 15},
-    tags: {display: 'flex'},
-    titleWrapper: {
-        marginBottom: rhythm(1 / 4)
-    },
-    subtitle: {
-        color: 'black',
-        fontWeight: 700
-    }
+    post: css`
+        margin-bottom: ${rhythm(2)};
+    `,
+    h3: css`
+        margin-top: ${rhythm(1 / 4)};
+        margin-bottom: ${rhythm(1 / 4)};
+    `,
+    link: css`
+        box-shadow: none;
+    `,
+    p: css`
+        margin-bottom: 15px;
+    `,
+    tags: css`
+        display: flex;
+    `,
+    titleWrapper: css`
+        margin-bottom: ${rhythm(1 / 4)};
+    `,
+    subtitle: css`
+        color: ${palette.secondary};
+        font-size: 1.2rem;
+        font-weight: 700;
+    `
 };
 
 /**

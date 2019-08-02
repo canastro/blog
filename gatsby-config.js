@@ -41,7 +41,7 @@ module.exports = {
             options: {
                 plugins: [
                     'gatsby-remark-copy-linked-files',
-                    'gatsby-plugin-glamor',
+                    'gatsby-plugin-emotion',
                     {
                         resolve: 'gatsby-remark-images',
                         options: {
@@ -89,8 +89,8 @@ module.exports = {
                 name: 'Canastro notes',
                 short_name: 'Canastro',
                 start_url: '/blog',
-                background_color: 'white',
-                theme_color: 'white',
+                background_color: 'black',
+                theme_color: 'black',
                 display: 'minimal-ui',
                 icon: 'content/assets/canastro-icon.png'
             }
