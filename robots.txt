@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://canastro.github.io/blog/sitemap.xml
+Sitemap: https://canastro.github.io/sitemap.xml
 Host: https://canastro.github.io
