@@ -1,22 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'gatsby';
-import {css, Global} from '@emotion/core';
+import {css} from '@emotion/core';
+import {FaRegLightbulb, FaLightbulb} from 'react-icons/fa';
 
-import 'prismjs/themes/prism-okaidia.css';
-import './prism.css';
-import {palette, text} from '../utils/theme';
+import ThemeContext from './ThemeContext';
 import {rhythm, scale} from '../utils/typography';
-
-const globalStyles = css`
-    body {
-        background: ${palette.primary};
-        color: ${text.body.color};
-    }
-`;
 
 const styles = {
     root: css`
+        position: relative;
         margin-left: auto;
         margin-right: auto;
         max-width: ${rhythm(30)};
@@ -36,6 +29,17 @@ const styles = {
         box-shadow: none;
         text-decoration: none;
         color: inherit;
+    `,
+    toggleTheme: theme => css`
+        position: absolute;
+        right: 0;
+        top: ${rhythm(1.5)};
+        border: 0;
+        background: ${theme.color};
+        color: ${theme.background};
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
     `
 };
 
@@ -45,6 +49,8 @@ const styles = {
  * @returns {React.ReactNode} - node
  */
 const Layout = ({location, title, children}) => {
+    const {theme, toggleTheme} = useContext(ThemeContext);
+
     const rootPath = `${__PATH_PREFIX__}/`;
     const tagsPath = `${__PATH_PREFIX__}/tags`;
     let header;
@@ -68,8 +74,10 @@ const Layout = ({location, title, children}) => {
     }
     return (
         <div css={styles.root}>
-            <Global styles={globalStyles} />
             {header}
+            <button css={styles.toggleTheme} onClick={toggleTheme}>
+                {theme === 'light' ? <FaLightbulb /> : <FaRegLightbulb />}
+            </button>
             {children}
         </div>
     );
@@ -78,7 +86,7 @@ const Layout = ({location, title, children}) => {
 Layout.propTypes = {
     location: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
-    children: PropTypes.any.isRequired
+    children: PropTypes.node.isRequired
 };
 
 export default Layout;

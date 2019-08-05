@@ -1,25 +1,6 @@
 import Typography from 'typography';
 import Wordpress2016 from 'typography-theme-wordpress-2016';
 import {css} from '@emotion/core';
-import {text} from './theme';
-
-Wordpress2016.overrideThemeStyles = () => ({
-    h1: {
-        color: text.title.color
-    },
-    'h2, h3, h4': {
-        color: text.subtitle.color
-    },
-    blockquote: {
-        color: text.blockquote.color
-    },
-    a: {
-        color: text.link.color
-    },
-    'a.gatsby-resp-image-link': {
-        boxShadow: 'none'
-    }
-});
 
 delete Wordpress2016.googleFonts;
 

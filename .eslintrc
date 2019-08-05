@@ -2,12 +2,7 @@
     "extends": [
         "airbnb",
         "@canastro/eslint-config",
-        "@canastro/eslint-config/jsdoc",
         "@canastro/eslint-config/react",
-        "plugin:flowtype/recommended"
-    ],
-    "plugins": [
-        "flowtype"
     ],
     "rules": {
         "import/no-extraneous-dependencies": "off",

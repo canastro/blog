@@ -4,11 +4,11 @@ import {Link, graphql} from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import {css} from '@emotion/core';
 
+import ThemeProvider from '../components/ThemeProvider';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/Seo';
 import Tag from '../components/Tag';
-import {palette} from '../utils/theme';
 import {rhythm} from '../utils/typography';
 
 const styles = {
@@ -31,8 +31,8 @@ const styles = {
     titleWrapper: css`
         margin-bottom: ${rhythm(1 / 4)};
     `,
-    subtitle: css`
-        color: ${palette.secondary};
+    subtitle: theme => css`
+        color: ${theme.secondary};
         font-size: 1.2rem;
         font-weight: 700;
     `
@@ -47,37 +47,39 @@ const BlogIndex = ({data, location}) => {
     const posts = data.allMarkdownRemark.edges;
 
     return (
-        <Layout location={location} title={siteTitle}>
-            <SEO title="All posts" keywords={keywords} />
-            <Bio />
-            {posts.map(({node}) => {
-                const {subtitle, path, title = node.fields.slug} = node.frontmatter;
-                const tags = node.frontmatter.tags.map(tag => ({
-                    text: tag,
-                    link: `/tags/${kebabCase(tag)}/`
-                }));
+        <ThemeProvider>
+            <Layout location={location} title={siteTitle}>
+                <SEO title="All posts" keywords={keywords} />
+                <Bio />
+                {posts.map(({node}) => {
+                    const {subtitle, path, title = node.fields.slug} = node.frontmatter;
+                    const tags = node.frontmatter.tags.map(tag => ({
+                        text: tag,
+                        link: `/tags/${kebabCase(tag)}/`
+                    }));
 
-                return (
-                    <div css={styles.post} key={node.fields.slug}>
-                        <small>{node.frontmatter.date}</small>
-                        <div css={styles.titleWrapper}>
-                            <h3 css={styles.h3}>
-                                <Link css={styles.link} to={path}>
-                                    {title}
-                                </Link>
-                            </h3>
-                            {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
+                    return (
+                        <div css={styles.post} key={node.fields.slug}>
+                            <small>{node.frontmatter.date}</small>
+                            <div css={styles.titleWrapper}>
+                                <h3 css={styles.h3}>
+                                    <Link css={styles.link} to={path}>
+                                        {title}
+                                    </Link>
+                                </h3>
+                                {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
+                            </div>
+                            <p css={styles.p} dangerouslySetInnerHTML={{__html: node.excerpt}} />
+                            <div css={styles.tags}>
+                                {tags.map(tag => (
+                                    <Tag key={tag.text} {...tag} />
+                                ))}
+                            </div>
                         </div>
-                        <p css={styles.p} dangerouslySetInnerHTML={{__html: node.excerpt}} />
-                        <div css={styles.tags}>
-                            {tags.map(tag => (
-                                <Tag key={tag.text} {...tag} />
-                            ))}
-                        </div>
-                    </div>
-                );
-            })}
-        </Layout>
+                    );
+                })}
+            </Layout>
+        </ThemeProvider>
     );
 };
 
