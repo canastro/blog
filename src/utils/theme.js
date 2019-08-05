@@ -27,7 +27,7 @@ export const getTheme = theme =>
  */
 export const useTheme = () => {
     const storedTheme = typeof window !== 'undefined' && window.localStorage.getItem('theme');
-    const [theme, setTheme] = useState(storedTheme || 'light');
+    const [theme, setTheme] = useState(storedTheme || 'dark');
     const toggleTheme = () => setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
     useEffect(() => {
         if (typeof window !== 'undefined') {
