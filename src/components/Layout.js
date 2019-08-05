@@ -75,8 +75,12 @@ const Layout = ({location, title, children}) => {
     return (
         <div css={styles.root}>
             {header}
-            <button css={styles.toggleTheme} onClick={toggleTheme}>
-                {theme === 'light' ? <FaLightbulb size="0.75rem" /> : <FaRegLightbulb size="0.75rem" />}
+            <button aria-label="Switch between Dark and Light mode" css={styles.toggleTheme} onClick={toggleTheme}>
+                {theme === 'light' ? (
+                    <FaLightbulb size="0.75rem" />
+                ) : (
+                    <FaRegLightbulb size="0.75rem" />
+                )}
             </button>
             {children}
         </div>
