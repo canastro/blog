@@ -234,4 +234,4 @@ Check the source code on of **bob-ross-kit** on [github](https://github.com/cana
 
 The way theme is configurable is heavily based on the way Material-UI does its themes with JSS.
 
-*If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
+*If you find any error, be it on my poor english or any technical detail, please don't be shy and tweet me about it. I'll try to continuously improve this blog post* :simple_smile:

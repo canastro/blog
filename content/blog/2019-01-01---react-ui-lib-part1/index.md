@@ -330,4 +330,4 @@ Check the source code on of **bob-ross-kit** on [github](https://github.com/cana
 # Credits
 This post is heavily based on Shawn Wang egghead's course ["Design Systems with React and Typescript in Storybook"](https://egghead.io/courses/design-systems-with-react-and-typescript-in-storybook). I did some tweaks and started adding some features on top of whats accomplished by the end of that course.
 
-*If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
+*If you find any error, be it on my poor english or any technical detail, please don't be shy and tweet me about it. I'll try to continuously improve this blog post* :simple_smile:

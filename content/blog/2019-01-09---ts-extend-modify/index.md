@@ -125,4 +125,4 @@ Typescript is a powerful tool, and it should be used to its full potential. I ha
 
 I hope to have shed some light on the powerful applications that  Mapped Types provide and that this might be a solution to a situation you face in the future.
 
-*If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:*
+*If you find any error, be it on my poor english or any technical detail, please don't be shy and tweet me about it. I'll try to continuously improve this blog post* :simple_smile:

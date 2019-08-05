@@ -11,7 +11,7 @@ To provide a smooth user experience the browser needs to be able to render 60 fr
 
 There are some tecniques to avoid janking the UI, with the most common one being to move such tasks to a Web Worker. In this post I'm going to investigate a different approach: How to split work into chunks and use the CPU's idle periods process them. This technique is used by the React's team in their fiber architecture: the reconciliation of a tree can be interruped to give way to a more priority work, improving the user's [perceived performance](https://blog.teamtreehouse.com/perceived-performance).
 
-Note: everything in this post is heavily inspired on react's fiber architecture (but in a very simplified approach), and if you jump to the resources section you'll get some resources that can help you figuring out how react works.
+Note: everything in this post is heavily inspired on react's fiber architecture (but in a very simplified approach). If you jump to the resources section you'll get some resources that can help you figuring out how react works.
 
 # Test case
 
@@ -194,4 +194,4 @@ But, there are a few topics that will require further exploration:
 
 _<strong>Disclaimer:</strong> Opinions are my own and not the views of my employer._
 
-_If you find any error, be it on my poor english or any technical detail, please don't be shy. I'll try to continuously improve this blog post :simple_smile:_
+*If you find any error, be it on my poor english or any technical detail, please don't be shy and tweet me about it. I'll try to continuously improve this blog post* :simple_smile:
