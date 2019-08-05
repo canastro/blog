@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, graphql} from 'gatsby';
 
-// Components
+import ThemeProvider from '../components/ThemeProvider';
 import Layout from '../components/Layout';
 import SEO from '../components/Seo';
 import Bio from '../components/Bio';
@@ -19,26 +19,28 @@ const Tags = ({pageContext, data, location}) => {
     const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
 
     return (
-        <Layout location={location} title={siteTitle}>
-            <SEO title={tag} description={tagHeader} />
-            <Bio />
-            <h4>{tagHeader}</h4>
-            <ul>
-                {edges.map(({node}) => {
-                    const {path, title} = node.frontmatter;
-                    return (
-                        <li key={path}>
-                            <Link to={path}>{title}</Link>
-                        </li>
-                    );
-                })}
-            </ul>
-            {/*
+        <ThemeProvider>
+            <Layout location={location} title={siteTitle}>
+                <SEO title={tag} description={tagHeader} />
+                <Bio />
+                <h4>{tagHeader}</h4>
+                <ul>
+                    {edges.map(({node}) => {
+                        const {path, title} = node.frontmatter;
+                        return (
+                            <li key={path}>
+                                <Link to={path}>{title}</Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+                {/*
               This links to a page that does not yet exist.
               We'll come back to it!
             */}
-            <Link to="/tags">All tags</Link>
-        </Layout>
+                <Link to="/tags">All tags</Link>
+            </Layout>
+        </ThemeProvider>
     );
 };
 

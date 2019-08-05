@@ -33,12 +33,12 @@ const styles = {
     toggleTheme: theme => css`
         position: absolute;
         right: 0;
-        top: ${rhythm(1.5)};
+        top: ${rhythm(2)};
         border: 0;
         background: ${theme.color};
         color: ${theme.background};
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         border-radius: 50%;
     `
 };
@@ -76,7 +76,7 @@ const Layout = ({location, title, children}) => {
         <div css={styles.root}>
             {header}
             <button css={styles.toggleTheme} onClick={toggleTheme}>
-                {theme === 'light' ? <FaLightbulb /> : <FaRegLightbulb />}
+                {theme === 'light' ? <FaLightbulb size="0.75rem" /> : <FaRegLightbulb size="0.75rem" />}
             </button>
             {children}
         </div>
