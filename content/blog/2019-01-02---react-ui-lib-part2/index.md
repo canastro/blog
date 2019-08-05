@@ -4,6 +4,7 @@ title: Creating a react ui-kit (Part 2)
 subtitle: Adding a styled-components theme
 tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
+tweet: https://twitter.com/Canastro/status/1082374920359809024
 date: "2019-01-02T22:00:00.000Z"
 ---
 

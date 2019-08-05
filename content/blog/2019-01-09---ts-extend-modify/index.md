@@ -3,6 +3,7 @@ path: "/ts-mapped-types"
 title: Typescript - Extending and modifying existing types with Mapped Types
 subtitle: A Typescript beginner's hard-learned lessons
 tags: ["react", "typescript"]
+tweet: https://twitter.com/Canastro/status/1083346791351894018
 draft: false
 date: "2019-01-09T22:45:00.000Z"
 ---

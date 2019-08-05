@@ -4,6 +4,7 @@ title: Creating a react ui-kit (Part 1)
 subtitle: Setup, Create first component and Sample app
 tags: ["react", "typescript", "storybook", "styled-components"]
 draft: false
+tweet: https://twitter.com/Canastro/status/1081110909349699584
 date: "2019-01-01T22:00:00.000Z"
 ---
 

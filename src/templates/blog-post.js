@@ -24,6 +24,12 @@ const styles = {
     hr: css`
         margin-bottom: ${rhythm(1)};
     `,
+    discuss: css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    `,
     navigation: css`
         display: flex;
         flex-wrap: wrap;
@@ -45,7 +51,7 @@ const BlogPostTemplate = (props) => {
     const post = props.data.markdownRemark;
     const siteTitle = props.data.site.siteMetadata.title;
     const {previous, next, tags} = props.pageContext;
-    const {title, subtitle} = post.frontmatter;
+    const {title, subtitle, tweet} = post.frontmatter;
     const keywords = tags.map(tag => tag.text);
 
     return (
@@ -63,6 +69,12 @@ const BlogPostTemplate = (props) => {
                     <p css={styles.smallText}>{post.frontmatter.date}</p>
                 </div>
                 <div dangerouslySetInnerHTML={{__html: post.html}} />
+
+                {tweet && (
+                    <div css={styles.discuss}>
+                        <a href={tweet}>Discuss on twitter</a>
+                    </div>
+                )}
 
                 <hr css={styles.hr} />
 
@@ -111,6 +123,7 @@ export const pageQuery = graphql`
                 title
                 subtitle
                 date(formatString: "MMMM DD, YYYY")
+                tweet
             }
         }
     }

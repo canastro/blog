@@ -4,6 +4,7 @@ title: Javascript long-running tasks
 subtitle: Use CPU's idle periods
 tags: ['javascript', 'long-running tasks']
 draft: false
+tweet: https://twitter.com/Canastro/status/1158334308211404800
 date: '2019-08-11T22:45:00.000Z'
 ---
 
