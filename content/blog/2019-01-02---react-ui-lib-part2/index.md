@@ -191,7 +191,7 @@ export { default as StyledButton } from './styled-button/styled-button';
 We're exposing ThemeProvider from styled-components just so that we don't make the use install styled-components just to use our lib. (MAKE SURE THAT IT WORKS PROPERLY IF CUSTOMER IS ALSO USING STYLED-COMPONENTS).
 
 
-# Update your sample app
+## Update your sample app
 
 1. Add our ThemeProvider to the root of the sample app: 
 
@@ -225,13 +225,13 @@ const Comp = () => (
 )
 ```
 
-# Conclusion
+## Conclusion
 
 By the end of this article your UI Kit should be ready to be themable and provide a default theme.
 
 Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)
 
-# Credits
+## Credits
 
 The way theme is configurable is heavily based on the way Material-UI does its themes with JSS.
 

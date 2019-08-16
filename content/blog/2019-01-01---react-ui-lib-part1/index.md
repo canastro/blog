@@ -18,7 +18,7 @@ In this blog post I'll try to guide you on how to setup a UI kit that is self-do
 
 The tools we're going to use are: [**React**](https://reactjs.org/), [**Typescript**](https://www.typescriptlang.org/), [**Storybook**](https://storybook.js.org/) and [**Styled-components**](https://www.styled-components.com/).
 
-# Kickoff and setup
+## Kickoff and setup
 
 Create a folder for your ui-kit, lets call it, **bob-ross-kit**. Do the `npm init` thing and add the following dependencies:
 
@@ -193,7 +193,7 @@ Using the babel plugin is not mandatory, but as mentioned in their [github page]
 
 And thats it. The project is finally configured... 
 
-# Create your first component
+## Create your first component
 
 Lets create a simple button, in a file called **src/styled-button/styled-button.tsx**:
 
@@ -252,7 +252,7 @@ export const StyledButton: React.SFC<Props> = (props: Props): React.ReactNode =>
 };
 ```
 
-# Create your first story
+## Create your first story
 
 As mentioned in the storybook configuration, we conventioned to have our stories next to our components with the prefix **.stories.jsx**. So lets create a file called **styled-button.stories.jsx** next to our component with the following content:
 
@@ -276,7 +276,7 @@ As you can see we use some helper functions from `@storybook/addon-knobs`. These
 You can now run `npm run storybook`, open `http://localhost:6006/` and voilà. :tada:
 
 
-# Prepare your project to be used by others
+## Prepare your project to be used by others
 1. Create a **index.ts** exporting the files you want to expose: 
 
 ```js
@@ -290,7 +290,7 @@ export { default as StyledButton } from './styled-button/styled-button';
 4. Run `npm run watch` if you want to keep updating your build when your files change.
 
 
-# Consume our lib
+## Consume our lib
 
 1. Create a project with `create-react-app`
 
@@ -310,13 +310,13 @@ const Comp = () => (
 )
 ```
 
-# Publishing
+## Publishing
 So far we used ` npm link `, but this will only work while using locally. Next step would be publishing your module into npm, check how to [Creating and publishing unscoped public packages](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages) or [Creating and publishing scoped public packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages).
 
 After publishing you just need to install your module as you would install any other npm dependency.
 
 
-# Conclusion
+## Conclusion
 
 I hope that by the end of this articled I helped you to:
 * Configure typescript
@@ -328,7 +328,7 @@ So we got the fundamentals to build a reusable ui kit. But we can still improve 
 
 Check the source code on of **bob-ross-kit** on [github](https://github.com/canastro/bob-ross-kit/tree/blog-stuff)
 
-# Credits
+## Credits
 This post is heavily based on Shawn Wang egghead's course ["Design Systems with React and Typescript in Storybook"](https://egghead.io/courses/design-systems-with-react-and-typescript-in-storybook). I did some tweaks and started adding some features on top of whats accomplished by the end of that course.
 
 *If you find any error, be it on my poor english or any technical detail, please don't be shy and tweet me about it. I'll try to continuously improve this blog post* :simple_smile:

@@ -14,7 +14,7 @@ There are some tecniques to avoid janking the UI, with the most common one being
 
 Note: everything in this post is heavily inspired on react's fiber architecture (but in a very simplified approach). If you jump to the resources section you'll get some resources that can help you figuring out how react works.
 
-# Test case
+## Test case
 
 A list of 100 000 nodes where the value of a node is computed based on the value of the previous node - when the user changes the first node every node in that chain will have to be recomputed, producing 99 999 nodes performing blocking computation.
 
@@ -56,7 +56,7 @@ nodes.set('A100000', {
 });
 ```
 
-# Requirements
+## Requirements
 
 Our solution should support the following requirements:
 
@@ -64,7 +64,7 @@ Our solution should support the following requirements:
 -   Processing should be interruptable (either because new data was introduced or user wants to leave the page)
 -   Should be as fast as possible given the previous constraints (if we split execution in chunks it will take a bit longer to process but the page will be responsive, and therefore the perceived perfomance will appear to be better)
 
-# How to measure the quality of our approach?
+## How to measure the quality of our approach?
 
 -   Create a simple app - I'll be using a app with Create React App;
 -   Add a scrollable area, and some animations to be able to test user interaction;
@@ -73,7 +73,7 @@ Our solution should support the following requirements:
 
 Yes, its not very scientific... But what we really want to improve here is the perceived performance, and thats more a sensorial experience.
 
-# Use CPU's idle periods
+## Use CPU's idle periods
 
 > The [window.requestIdleCallback()](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) method queues a function to be called during a browser's idle periods. This enables developers to perform background and low priority work on the main event loop, without impacting latency-critical events such as animation and input response. Functions are generally called in first-in-first-out order; however, callbacks which have a timeout specified may be called out-of-order if necessary in order to run them before the timeout elapses.
 
@@ -81,7 +81,7 @@ By calling requestIdleCallback we schedule a callback for the next CPU idle peri
 
 Using the timeRemaining and a constant max time for each calculation we can check if we have free time to do one more calc or reschedule to the next idle period. We'll schedule a new callback until there are no more tasks to execute. By processing our nodes this way, we make sure to not interrupt latency-critical events and provide a smooth user experience.
 
-# Schedule work
+## Schedule work
 
 Since we're using CPU's idle time, the user can at anytime interact with the page and schedule a new piece of work. This means that we should keep a queue of pending work.
 
@@ -151,7 +151,7 @@ function performWork(deadline: number): void {
 }
 ```
 
-# Results
+## Results
 
 The blocking iteration approach is much faster to execute, but, as visible in **fig. 1** it has a lot of drop frames. The page would be unresponsive for a second there. The idle callback approach takes longer to execute, its time of execution is not predictable as it depends on how busy the CPU is, but the page is responsive at all times (**fig. 2**) and therefore the perceived performance might be much better.
 
@@ -170,7 +170,7 @@ align-items: center;justify-content: center;">
 
 Check [this video](https://github.com/canastro/blog-offload-computation/raw/master/idle-vs-normal.mp4) to see the result of the output of the sample created while writing this article.
 
-# Conclusion
+## Conclusion
 
 In this isolated test it seems that the approach with **requestIdleCallback** checks our requirements.
 
@@ -184,7 +184,7 @@ But, there are a few topics that will require further exploration:
 -   According to [@sebmarkbage](https://twitter.com/sebmarkbage/status/822881464794497024) most requestIdleCallback shims are not a accurate representation of what requestIdleCallback should do. Can we find a good shim or even use the one that react uses?
 -   How does this compare with using webworkers (or other possible approaches)? - I hope to be able to answer this in future articles.
 
-# Resources
+## Resources
 
 -   [Github repo with code presented in this article](https://github.com/canastro/blog-offload-computation)
 -   [Udacity's "Browser Rendering Optimization" course by Google](https://www.udacity.com/course/browser-rendering-optimization--ud860)

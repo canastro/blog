@@ -58,17 +58,19 @@ const BlogPostTemplate = (props) => {
         <ThemeProvider>
             <Layout location={props.location} title={siteTitle}>
                 <SEO title={title} description={post.excerpt} keywords={keywords} />
-                <div css={styles.header}>
-                    <h1>{title}</h1>
-                    {subtitle && <strong css={styles.subtitle}>{subtitle}</strong>}
-                    <div css={styles.tags}>
-                        {tags.map(tag => (
-                            <Tag key={tag.text} {...tag} />
-                        ))}
+                <main>
+                    <div css={styles.header}>
+                        <h1>{title}</h1>
+                        {subtitle && <strong css={styles.subtitle}>{subtitle}</strong>}
+                        <div css={styles.tags}>
+                            {tags.map(tag => (
+                                <Tag key={tag.text} {...tag} />
+                            ))}
+                        </div>
+                        <p css={styles.smallText}>{post.frontmatter.date}</p>
                     </div>
-                    <p css={styles.smallText}>{post.frontmatter.date}</p>
-                </div>
-                <div dangerouslySetInnerHTML={{__html: post.html}} />
+                    <div dangerouslySetInnerHTML={{__html: post.html}} />
+                </main>
 
                 {tweet && (
                     <div css={styles.discuss}>
@@ -78,22 +80,24 @@ const BlogPostTemplate = (props) => {
 
                 <hr css={styles.hr} />
 
-                <ul css={styles.navigation}>
-                    <li>
-                        {previous && (
-                            <Link to={previous.fields.slug} rel="prev">
-                                ← {previous.frontmatter.title}
-                            </Link>
-                        )}
-                    </li>
-                    <li>
-                        {next && (
-                            <Link to={next.fields.slug} rel="next">
-                                {next.frontmatter.title} →
-                            </Link>
-                        )}
-                    </li>
-                </ul>
+                <nav>
+                    <ul css={styles.navigation}>
+                        <li>
+                            {previous && (
+                                <Link to={previous.fields.slug} rel="prev">
+                                    ← {previous.frontmatter.title}
+                                </Link>
+                            )}
+                        </li>
+                        <li>
+                            {next && (
+                                <Link to={next.fields.slug} rel="next">
+                                    {next.frontmatter.title} →
+                                </Link>
+                            )}
+                        </li>
+                    </ul>
+                </nav>
             </Layout>
         </ThemeProvider>
     );

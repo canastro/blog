@@ -12,7 +12,7 @@ I've been hearing people talk about Typescript for a long time now, but I never 
 
 During this journey I'll document those that I find my most interesting and useful findings. Inspired by [@swyx's tweet](https://twitter.com/swyx/status/1009174159690264579) a while back, I'll share those findings in this blog, this will "force" me to be more exhaust on my research and possibily have errors being pointed out by others that will help me grow as a developer. [#LearnInPublic](https://twitter.com/hashtag/LearnInPublic?src=hash)
 
-# Modify a type
+## Modify a type
 Having the following scenario: you're creating a lib that hopefuly alot of other devs will use to build their apps. Your lib has a static theme configuration object, but sooner or later your users will ask you to provide a way to override some parts of that theme, such as:
 
 ```js
@@ -70,7 +70,7 @@ You might have noticed that in my type definitions I added a plus sign before th
 
 Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgApwDYTJZBvAKGWQHcALYSALmQGcwpQBzAbiOSaggE8b7GQrdgCMMiANZ8GzNsQAOjALZwovOtMGy6EBAHsQAExVr+MggF82BAPQAqW0VvIw3OSnRYcEAJIg5AVzBkAF40FTBgTAAeACUIOAMAeRAMbiiPbEgAPizZW2sCAhc3MM9IXwCg0MJiAGouBP1U5ABtAGlkUGRxHl0YUsyIAF1agH4aDK92obZzQr0QemQDCHh-DDBJ3Gr2ckoIGgByAGIYM8OAGnZOHiPTgHYYAE54S5ExBElkE4AmP7f5EpjHcAGwGADMAAYIPcAdoFkZVHcDDADCsDIcLFYFksEA1IFsUKEABS6ABu0EYK1o4wGXgqgQAlBNMIMQllkOxiIlhAArHRgAB0cFotGATBAxLw5guy1WcHWm1ZXll5MpwGpjK0BBxQTkyu2yDx8QJBogxK1Ov0uP89F0imAAC8IAZCSEjfiIISpcgFMBlEjvlwMchzJarYtdFhBRhdEwffqyhBZQhbWB7U6XW6wywgA)
 
-# Modify and extend a type
+## Modify and extend a type
 
 What if we wanted to provide some input props that are not overrides, but are variables that will be used to compute the new theme. In the next example, the `fontSize` and `htmlFontSize` arguments were only used to calculate the `fontSizeH1` in *rem* units:
 
@@ -120,7 +120,7 @@ export type TypographyInput = {
 
 Check the [example on typescript-play.js.org.](https://typescript-play.js.org/#code/JYOwLgpgTgZghgYwgAgCoE8AOB7A5lOTAC3WQG8AoZa5GbcAZWAC8IAJARgC5kBnMKKFwBuKjTrgA6hGC4iYAHLYoAWzgAbHiACuKgEbRRNWvTDTZ8gELZ1AEy26DUUQF8KFMFhQYc+QiQBJEExtMGQAXnIxagBqKAg4W3p1UgBtAGlkUGQAawh0bBg0LDwCYnQAXRiAfh4fUv90DIrXZAAyKOMJMCZWWuQdfUNo5HkVdQAxU16IfsGnV3cAegAqFY8vYt8ywODQiOQABTgoMGANAB4AJQSkkBSL+r9ygD4X9s7xaZZZhyHnEZjSbfPp-BYUNzIFZLdwIej8ZAIeJwSBPHakSIACk820a-TRjSCITAAEo6iVniQIu9KMY4SAEbTjF9GD8DhwACwAGhGxiBU1ZrHZADYecyWWYZHJFMo1OoDhyAAyKsXikxSKVWGy2A4AdmVIxcBxxDXKyAAPubyC5RCN6Qi4RAipFujNkEtkJyjDR7WFMAAPVDYG4qA6Y3g-MHQEnU5AAAwAJGRw2yPfyQRAYytEdgnS54io47bjPEwNooCBPuLXT9ODwA0GQ5iAJzCkmq6umczSpSqDQd5ndbtauyG1y2ii+5AmykYxHI1EU9GYkmiKcIbT8bAqH62AlmyJIhKL3HlTFkdU9SPIABMiuQLlXsPhNggADp1Hhz9Ol40uYjNzAbdd33KlH2EIA)
 
-# Final remarks
+## Final remarks
 
 Typescript is a powerful tool, and it should be used to its full potential. I have used flow and react prop-types, and I know I have resorted a lot of times to the use of `any` or generic `.object` but if you're going to cheat on types, then why bother to set them up at all?
 

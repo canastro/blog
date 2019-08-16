@@ -15,7 +15,7 @@ const styles = {
     post: css`
         margin-bottom: ${rhythm(2)};
     `,
-    h3: css`
+    articleTitle: css`
         margin-top: ${rhythm(1 / 4)};
         margin-bottom: ${rhythm(1 / 4)};
     `,
@@ -59,14 +59,14 @@ const BlogIndex = ({data, location}) => {
                     }));
 
                     return (
-                        <div css={styles.post} key={node.fields.slug}>
+                        <main css={styles.post} key={node.fields.slug}>
                             <small>{node.frontmatter.date}</small>
                             <div css={styles.titleWrapper}>
-                                <h3 css={styles.h3}>
+                                <h2 css={styles.articleTitle}>
                                     <Link css={styles.link} to={path}>
                                         {title}
                                     </Link>
-                                </h3>
+                                </h2>
                                 {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
                             </div>
                             <p css={styles.p} dangerouslySetInnerHTML={{__html: node.excerpt}} />
@@ -75,7 +75,7 @@ const BlogIndex = ({data, location}) => {
                                     <Tag key={tag.text} {...tag} />
                                 ))}
                             </div>
-                        </div>
+                        </main>
                     );
                 })}
             </Layout>

@@ -22,7 +22,7 @@ const TagsPage = ({data, location}) => {
             <Layout location={location} title={title}>
                 <SEO title="All tags" keywords={keywords} />
                 <Bio />
-                <div>
+                <main>
                     <h4>Tags</h4>
                     <ul>
                         {group.map(tag => (
@@ -33,7 +33,7 @@ const TagsPage = ({data, location}) => {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </main>
             </Layout>
         </ThemeProvider>
     );

@@ -46,13 +46,28 @@ const Bio = () => (
             return (
                 <div css={styles.root}>
                     <div css={styles.social}>
-                        <a title="twitter" href={social.twitter}>
+                        <a
+                            title="twitter"
+                            href={social.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaTwitter />
                         </a>
-                        <a title="linkedin" href={social.linkedin}>
+                        <a
+                            title="linkedin"
+                            href={social.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaLinkedin />
                         </a>
-                        <a title="stackoverflow" href={social.stackoverflow}>
+                        <a
+                            title="stackoverflow"
+                            href={social.stackoverflow}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaStackOverflow />
                         </a>
                     </div>

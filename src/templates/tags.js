@@ -26,10 +26,16 @@ const Tags = ({pageContext, data, location}) => {
                 <h4>{tagHeader}</h4>
                 <ul>
                     {edges.map(({node}) => {
-                        const {path, title} = node.frontmatter;
+                        const {path, title, subtitle} = node.frontmatter;
+
+                        let fullTitle = title;
+                        if (subtitle) {
+                            fullTitle += ` - ${subtitle}`;
+                        }
+
                         return (
                             <li key={path}>
-                                <Link to={path}>{title}</Link>
+                                <Link to={path}>{fullTitle}</Link>
                             </li>
                         );
                     })}
@@ -89,6 +95,7 @@ export const pageQuery = graphql`
                     frontmatter {
                         path
                         title
+                        subtitle
                     }
                 }
             }

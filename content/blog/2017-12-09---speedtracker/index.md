@@ -8,15 +8,15 @@ date: "2017-12-09T22:00:00.000Z"
 
 Are you tired of checking WebPageTest if your website's performance is still top notch after a couple of weeks of development? No worries, SpeedTracker will keep an eye for you!
 
-# What is SpeedTracker?
+## What is SpeedTracker?
 It runs on top of [WebPageTest](https://www.webpagetest.org/) and makes periodic performance tests on your website and shows a visualisation of how the various performance metrics evolve over time.
 
-# How to set it up?
+## How to set it up?
 It's pretty simple, fork the original repo, tweak some configurations and enable the repo to be served as a GitHub page.
 
 Check the installation / configuration steps here: https://speedtracker.org/docs.
 
-# Highlighted Features
+## Highlighted Features
 ### Multiple configurations
 You don't need a instance of SpeedTracker per project, you can have multiple profiles.
 One default profile should be defined, this will be the one loaded by default when you access the main page. Other profiles will be available under a dropdown on top right corner.
@@ -78,7 +78,7 @@ budgets:
 
 For a list of possible metrics: Check [SpeedTracker Source Code](https://github.com/speedtracker/speedtracker-api/blob/master/lib/SpeedTracker.js#L18-L37)
 
-# Resources
+## Resources
 * [WebPageTest](https://www.webpagetest.org/)
 * [SpeedTracker](https://speedtracker.org)
 * [SpeedTracker's GitHub](https://github.com/speedtracker/speedtracker)

@@ -6,7 +6,7 @@ draft: false
 date: "2017-12-08T22:00:00.000Z"
 ---
 
-# What is Flow?
+## What is Flow?
 
 Flow is a static type checker for javascript that allows you to:
 * Code **faster**: Flow identifies problems as you code. Stop wasting your time guessing and checking;
@@ -16,7 +16,7 @@ Flow is a static type checker for javascript that allows you to:
 
 Text *extracted* from *[flow.org](flow.org)*
 
-# What is Flow Runtime?
+## What is Flow Runtime?
 
 Some type errors cannot be detected on compilation time but only on runtime, flow-runtime annotates your code with assertations to validate types. Imagine the following code:
 
@@ -52,7 +52,7 @@ Actual Value: "test-string"
 Actual Type: string
 ```
 
-# Flow & flow-runtime annotations in production builds?
+## Flow & flow-runtime annotations in production builds?
 No, no, definitely not! All flow and flow-runtime annotations should be removed for a production build.
 
 `babel-plugin-transform-flow-strip-types` module will remove all flow annotations and `babel-plugin-flow-runtime` should only be configured for the `development` environment.
@@ -77,7 +77,7 @@ Following a configuration similar with this, we will achieve a bundle clean of a
 }
 ```
 
-# How to validate flow types on build?
+## How to validate flow types on build?
 In order to have flow type errors during build process you shoud install `babel-plugin-flow-runtime` and add the plugin to your `webpack.config.js` file.
 
 ```javascript
@@ -98,7 +98,7 @@ module.exports = {
 };
 ```
 
-# Setup a playground
+## Setup a playground
 Lets setup a dummy project just to get you started with flow.
 
 > If you, like me, prefer to see code instead of steps to achieve the final goal, check  a dummy project here: [flow-runtime-demo](https://github.com/canastro/flow-runtime-demo)
@@ -129,7 +129,7 @@ Here you go, you have simple setup of webpack + flow + flow-runtime, now go bana
 
 ![Go Bananas](./go-go-bananas.jpg)
 
-# Resources
+## Resources
 * [flow](https://flow.org/)
 * [flow-runtime](https://codemix.github.io/flow-runtime/#/)
 * [flow-runtime-demo](https://github.com/canastro/flow-runtime-demo)
