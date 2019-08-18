@@ -10,7 +10,7 @@ date: '2019-08-11T22:45:00.000Z'
 
 To provide a smooth user experience the browser needs to be able to render 60 frames per second, which means rendering a frame every 16ms. If you have long-running javascript tasks than you're going to start dropping frames, and that will be obvious if the user is scrolling or a animation is being rendered.
 
-There are some tecniques to avoid janking the UI, with the most common one being to move such tasks to a Web Worker. In this post I'm going to investigate a different approach: How to split work into chunks and use the CPU's idle periods process them. This technique is used by the React's team in their fiber architecture: the reconciliation of a tree can be interruped to give way to a more priority work, improving the user's [perceived performance](https://blog.teamtreehouse.com/perceived-performance).
+There are some techniques to avoid janking the UI, with the most common one being to move such tasks to a Web Worker. In this post I'm going to investigate a different approach: How to split work into chunks and use the CPU's idle periods process them. This technique is used by the React's team in their fiber architecture: the reconciliation of a tree can be interrupted to give way to a more priority work, improving the user's [perceived performance](https://blog.teamtreehouse.com/perceived-performance).
 
 Note: everything in this post is heavily inspired on react's fiber architecture (but in a very simplified approach). If you jump to the resources section you'll get some resources that can help you figuring out how react works.
 
@@ -62,7 +62,7 @@ Our solution should support the following requirements:
 
 -   No dropped frames, the page should be responsive at all times
 -   Processing should be interruptable (either because new data was introduced or user wants to leave the page)
--   Should be as fast as possible given the previous constraints (if we split execution in chunks it will take a bit longer to process but the page will be responsive, and therefore the perceived perfomance will appear to be better)
+-   Should be as fast as possible given the previous constraints (if we split execution in chunks it will take a bit longer to process but the page will be responsive, and therefore the perceived performance will appear to be better)
 
 ## How to measure the quality of our approach?
 

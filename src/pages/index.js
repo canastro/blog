@@ -51,33 +51,38 @@ const BlogIndex = ({data, location}) => {
             <Layout location={location} title={siteTitle}>
                 <SEO title="All posts" keywords={keywords} />
                 <Bio />
-                {posts.map(({node}) => {
-                    const {subtitle, path, title = node.fields.slug} = node.frontmatter;
-                    const tags = node.frontmatter.tags.map(tag => ({
-                        text: tag,
-                        link: `/tags/${kebabCase(tag)}/`
-                    }));
+                <main>
+                    {posts.map(({node}) => {
+                        const {subtitle, path, title = node.fields.slug} = node.frontmatter;
+                        const tags = node.frontmatter.tags.map(tag => ({
+                            text: tag,
+                            link: `/tags/${kebabCase(tag)}/`
+                        }));
 
-                    return (
-                        <main css={styles.post} key={node.fields.slug}>
-                            <small>{node.frontmatter.date}</small>
-                            <div css={styles.titleWrapper}>
-                                <h2 css={styles.articleTitle}>
-                                    <Link css={styles.link} to={path}>
-                                        {title}
-                                    </Link>
-                                </h2>
-                                {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
-                            </div>
-                            <p css={styles.p} dangerouslySetInnerHTML={{__html: node.excerpt}} />
-                            <div css={styles.tags}>
-                                {tags.map(tag => (
-                                    <Tag key={tag.text} {...tag} />
-                                ))}
-                            </div>
-                        </main>
-                    );
-                })}
+                        return (
+                            <article css={styles.post} key={node.fields.slug}>
+                                <small>{node.frontmatter.date}</small>
+                                <div css={styles.titleWrapper}>
+                                    <h2 css={styles.articleTitle}>
+                                        <Link css={styles.link} to={path}>
+                                            {title}
+                                        </Link>
+                                    </h2>
+                                    {subtitle && <span css={styles.subtitle}>{subtitle}</span>}
+                                </div>
+                                <p
+                                    css={styles.p}
+                                    dangerouslySetInnerHTML={{__html: node.excerpt}}
+                                />
+                                <div css={styles.tags}>
+                                    {tags.map(tag => (
+                                        <Tag key={tag.text} {...tag} />
+                                    ))}
+                                </div>
+                            </article>
+                        );
+                    })}
+                </main>
             </Layout>
         </ThemeProvider>
     );
